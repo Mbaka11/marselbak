@@ -75,6 +75,10 @@ html.nt-snap { scroll-snap-type: y mandatory; }
   display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; letter-spacing: 1px;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
 }
+.nt-art svg { width: 22px; height: 22px; opacity: 0.9; }
+.nt-meta { display: flex; flex-direction: column; min-width: 0; max-width: 150px; line-height: 1.25; }
+.nt-mtitle { font-size: 13px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nt-martist { font-size: 11px; color: rgba(255,255,255,0.55); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .nt-time { font-size: 11px; color: rgba(255,255,255,0.6); min-width: 28px; }
 .nt-progress, .nt-slider { -webkit-appearance: none; appearance: none; height: 3px; border-radius: 3px; background: rgba(255,255,255,0.25); outline: none; cursor: pointer; }
 .nt-progress { flex: 1; }
@@ -140,7 +144,7 @@ html.nt-snap { scroll-snap-type: y mandatory; }
   .nt-views { align-self: center; font-size: 12px; }
   .nt-player { gap: 8px; }
   .nt-art { width: 32px; height: 32px; }
-  .nt-time { display: none; }
+  .nt-time, .nt-meta { display: none; }
   .nt-slider { width: 60px; }
 }
 @media (prefers-reduced-motion: reduce) {

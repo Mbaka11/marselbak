@@ -95,7 +95,7 @@ export default function NightPage() {
   const audio = useRef<HTMLAudioElement>(null);
   const wrap = useRef<HTMLDivElement>(null);
   const [views, setViews] = useState<number | null>(null);
-  const [idx, setIdx] = useState(0);
+  const [idx, setIdx] = useState(() => Math.floor(Math.random() * tracks.length));
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(0);
   const [dur, setDur] = useState(0);
@@ -186,7 +186,10 @@ export default function NightPage() {
         ref={audio}
         src={trackUrl(track)}
         onTimeUpdate={(e) => setTime(e.currentTarget.currentTime)}
-        onLoadedMetadata={(e) => setDur(e.currentTarget.duration)}
+        onLoadedMetadata={(e) => {
+          setDur(e.currentTarget.duration);
+          if (track.start && e.currentTarget.currentTime < track.start) e.currentTarget.currentTime = track.start;
+        }}
         onEnded={next}
       />
 
@@ -213,7 +216,7 @@ export default function NightPage() {
                 </div>
                 <div className="nt-status">
                   <span className={"nt-dot" + (playing ? " on" : "")} />
-                  {playing ? `${t.listening} ${track.title} — ${track.artist}` : t.online}
+                  {`♪ ${track.title} — ${track.artist}`}
                 </div>
                 <div className={"nt-bio" + (tw.glitchBio ? " nt-glitch" : "")}>
                   {tw.bio}
@@ -246,8 +249,12 @@ export default function NightPage() {
 
           <div className="nt-player" style={{ ...glassStyle, borderColor: `rgba(255,255,255,${0.2 * (glass > 0 ? 1 : 0)})` }}>
             <Orbit radius={15} duration={6} />
-            <div className="nt-art" style={{ background: cover(track.title) }}>
-              {initials(track.title)}
+            <div className="nt-art" style={{ background: cover(track.title) }} aria-hidden>
+              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 18V6l11-2v12.2a3 3 0 1 1-2-2.8V7.3L11 8.4V18a3 3 0 1 1-2-2.8z" /></svg>
+            </div>
+            <div className="nt-meta">
+              <span className="nt-mtitle">{track.title}</span>
+              <span className="nt-martist">{track.artist}</span>
             </div>
             <span className="nt-time">{fmt(time)}</span>
             <input
@@ -331,13 +338,4 @@ function cover(title: string) {
   const a = h % 360;
   const b = (a + 40 + (h % 80)) % 360;
   return `linear-gradient(135deg, hsl(${a} 55% 38%), hsl(${b} 60% 18%))`;
-}
-function initials(title: string) {
-  return title
-    .replace(/[^\p{L}\s]/gu, "")
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0].toUpperCase())
-    .join("");
 }

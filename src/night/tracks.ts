@@ -1,8 +1,8 @@
 // Display metadata for public/music/*.mp3. Add a line here to add a track.
-export type Track = { file: string; artist: string; title: string };
+export type Track = { file: string; artist: string; title: string; start?: number };
 
 export const tracks: Track[] = [
-  { file: "tame-impala_loser.mp3", artist: "Tame Impala", title: "Loser" },
+  { file: "tame-impala_loser.mp3", artist: "Tame Impala", title: "Loser", start: 40 },
   { file: "ninho_mal-lune.mp3", artist: "Ninho", title: "Mal luné" },
   { file: "calvin-harris_im-not-alone.mp3", artist: "Calvin Harris", title: "I'm Not Alone" },
   { file: "marina_primadonna.mp3", artist: "Marina", title: "Primadonna" },

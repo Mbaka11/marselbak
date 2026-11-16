@@ -49,6 +49,15 @@ a:hover { text-decoration: underline; }
 .brand { font-weight: 700; letter-spacing: 0.02em; }
 .controls { display: flex; gap: 8px; }
 
+/* dark header in both modes so it blends with the desk / night scene */
+.bar {
+  background: rgba(12, 9, 7, 0.94);
+  color: #efe3cc;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.bar .pill { background: rgba(255, 255, 255, 0.06); color: #efe3cc; border-color: rgba(255, 255, 255, 0.14); }
+.bar .pill:hover { border-color: rgba(239, 227, 204, 0.55); }
+
 .pill {
   border: 1px solid var(--line);
   background: var(--card);
