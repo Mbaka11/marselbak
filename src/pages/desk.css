@@ -1,0 +1,278 @@
+/* ---- Desk scene (day / pro page) ---- */
+.desk {
+  position: relative;
+  height: calc(100vh - 57px);
+  min-height: 620px;
+  overflow: hidden;
+  color: #2b2118;
+}
+
+/* dark walnut surface, seen from above */
+.desk-surface {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(92deg, rgba(0, 0, 0, 0.05) 0 2px, transparent 2px 9px),
+    repeating-linear-gradient(88deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 23px),
+    linear-gradient(180deg, #3b2617 0%, #2c1b10 55%, #22150c 100%);
+}
+.desk-light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 42%, rgba(255, 228, 180, 0.22), transparent 60%),
+    radial-gradient(ellipse at 50% 120%, rgba(0, 0, 0, 0.55), transparent 60%);
+}
+
+/* brass nameplate */
+.nameplate {
+  position: absolute;
+  top: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 34px 12px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #e6c77c, #b98f3e 55%, #d9b766);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+  font-family: "Cormorant Garamond", Garamond, "Times New Roman", serif;
+  color: #3a2a0e;
+  text-shadow: 0 1px 0 rgba(255, 240, 200, 0.6);
+  white-space: nowrap;
+  z-index: 2;
+}
+.np-name { font-size: 22px; font-weight: 600; letter-spacing: 0.18em; font-variant: small-caps; }
+.np-title { font-size: 13px; letter-spacing: 0.12em; }
+
+/* framed picture */
+.desk-frame {
+  position: absolute;
+  top: 40px;
+  right: 6%;
+  width: 150px;
+  margin: 0;
+  padding: 10px;
+  background: #1a1410;
+  border: 6px solid #6b4b2a;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.55);
+  transform: rotate(4deg);
+  z-index: 1;
+}
+.desk-frame img { display: block; width: 100%; height: auto; }
+
+/* manila folders */
+.desk-folders {
+  position: absolute;
+  left: 4%;
+  bottom: 9%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  z-index: 2;
+}
+.folder {
+  all: unset;
+  cursor: pointer;
+  width: 170px;
+  padding: 14px 16px 30px;
+  margin-top: -18px;
+  background: linear-gradient(180deg, #e2c58f, #d4b47a);
+  border-radius: 6px 22px 4px 4px;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
+  font: 600 13px/1 ui-monospace, Consolas, monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4a3416;
+  transform: rotate(calc(-3deg + var(--i) * 1.5deg));
+  transition: transform 0.25s, background 0.25s;
+}
+.folder:hover, .folder:focus-visible, .folder.active { transform: translateX(14px) rotate(-1deg); background: linear-gradient(180deg, #f0d7a6, #dcbd84); }
+.folder:focus-visible { outline: 2px solid #fff3; outline-offset: 2px; }
+
+/* fountain pen */
+.desk-pen {
+  position: absolute;
+  right: 12%;
+  bottom: 14%;
+  width: 14px;
+  height: 190px;
+  border-radius: 7px;
+  background: linear-gradient(90deg, #0d0d0f, #2c2c33 50%, #0d0d0f);
+  box-shadow: 4px 10px 12px rgba(0, 0, 0, 0.5);
+  transform: rotate(32deg);
+}
+.desk-pen::before {
+  content: "";
+  position: absolute;
+  top: -22px;
+  left: 3px;
+  width: 8px;
+  height: 26px;
+  background: linear-gradient(90deg, #a07b2c, #e9cc7d, #a07b2c);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+/* the business card on the desk */
+.card-slot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(92vw, 420px);
+  transform: translate(-50%, -46%) rotate(-3deg);
+  transition: left 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), top 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 3;
+}
+.card-slot .bc-hint { display: none; }
+.stage-intro .card-slot { animation: throw 1s cubic-bezier(0.15, 0.85, 0.25, 1) both; }
+@keyframes throw {
+  0% { transform: translate(120vw, -90%) rotate(-38deg) scale(1.1); }
+  70% { transform: translate(-48%, -46%) rotate(-1deg); }
+  85% { transform: translate(-51%, -46%) rotate(-4deg); }
+  100% { transform: translate(-50%, -46%) rotate(-3deg); }
+}
+.desk-hint {
+  margin: 14px 0 0;
+  text-align: center;
+  font: italic 15px "Cormorant Garamond", Garamond, serif;
+  color: rgba(255, 236, 205, 0.7);
+  letter-spacing: 0.06em;
+}
+.is-open .card-slot { left: 22%; top: 30%; transform: translate(-50%, -50%) rotate(-6deg) scale(0.78); }
+
+/* the sheet that slides in */
+.sheet {
+  position: absolute;
+  right: 5%;
+  top: 96px;
+  bottom: 28px;
+  width: min(560px, 52vw);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 38px 40px 34px;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 27px, rgba(80, 110, 160, 0.12) 27px 28px),
+    linear-gradient(180deg, #f8f4ea, #f1ebdc);
+  color: #2a2420;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  transform: rotate(1.2deg);
+  animation: sheet-in 0.65s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+  z-index: 4;
+  font-family: "Cormorant Garamond", Garamond, "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 1.45;
+}
+@keyframes sheet-in {
+  from { transform: translate(60vw, 10px) rotate(9deg); opacity: 0.4; }
+  to { transform: rotate(1.2deg); opacity: 1; }
+}
+.sheet-title {
+  margin: 0 0 18px;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  font-variant: small-caps;
+  color: #2a2420;
+  text-transform: none;
+}
+.sheet-close {
+  all: unset;
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+  color: #5b4d40;
+}
+.sheet-close:focus-visible { outline: 2px solid #7a0d0d; }
+.sheet-list { list-style: none; margin: 0; padding: 0; }
+.sheet-list > li { padding: 0 0 18px; margin-bottom: 18px; border-bottom: 1px dashed rgba(60, 40, 20, 0.25); }
+.sheet-list > li:last-child { border-bottom: 0; }
+.sheet-list ul { margin: 6px 0 0; padding-left: 20px; }
+.sheet-list p { margin: 4px 0; }
+.sheet-head { display: flex; gap: 12px; align-items: center; }
+.sheet-head strong, .sheet-list strong { font-size: 20px; }
+.sheet-meta { display: block; font: 13px/1.4 ui-monospace, Consolas, monospace; color: #6d6257; letter-spacing: 0.02em; }
+.sheet-link { color: #2a2420; }
+.sheet-contact { display: flex; flex-direction: column; gap: 14px; font-size: 20px; }
+.sheet-contact a { color: #2a2420; display: inline-flex; gap: 10px; align-items: center; }
+.sheet .logo { background: #fff; }
+
+.stain { position: absolute; width: 96px; right: 46px; top: 14px; transform: rotate(-20deg); pointer-events: none; mix-blend-mode: multiply; opacity: 0.85; }
+
+.knife {
+  position: absolute;
+  right: calc(5% + min(560px, 52vw) + 10px);
+  bottom: 40px;
+  height: 260px;
+  transform: rotate(-24deg);
+  filter: drop-shadow(6px 10px 8px rgba(0, 0, 0, 0.6));
+  z-index: 3;
+  animation: knife-in 0.8s 0.2s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+}
+@keyframes knife-in { from { opacity: 0; transform: translateY(40px) rotate(-40deg); } }
+
+/* tools */
+.desk-tools { position: absolute; right: 18px; bottom: 16px; display: flex; gap: 8px; z-index: 5; }
+.desk-chip {
+  all: unset;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font: 13px system-ui, sans-serif;
+  color: #f3e6d0;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.desk-chip:focus-visible { outline: 2px solid #f3e6d0; }
+
+/* entry gate (audio needs a click) */
+.gate {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: radial-gradient(ellipse at center, rgba(20, 12, 6, 0.55), rgba(10, 6, 3, 0.9));
+  color: #f3e6d0;
+}
+.gate-enter {
+  all: unset;
+  cursor: pointer;
+  padding: 14px 44px;
+  border: 1px solid rgba(243, 230, 208, 0.6);
+  font: 600 22px "Cormorant Garamond", Garamond, serif;
+  letter-spacing: 0.3em;
+  font-variant: small-caps;
+  transition: background 0.2s;
+}
+.gate-enter:hover, .gate-enter:focus-visible { background: rgba(243, 230, 208, 0.12); }
+.gate-note { margin: 0; font-size: 14px; opacity: 0.7; }
+.gate-mute { all: unset; cursor: pointer; font-size: 13px; text-decoration: underline; opacity: 0.6; }
+
+/* tablet / phone: stack card above the sheet */
+@media (max-width: 900px) {
+  .desk { height: auto; min-height: calc(100vh - 57px); padding-bottom: 80px; }
+  .desk-frame, .desk-pen, .knife { display: none; }
+  .desk-folders { position: relative; left: auto; bottom: auto; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 0 16px; margin-top: 18px; z-index: 2; }
+  .folder { width: auto; margin: 0; padding: 10px 14px; border-radius: 6px 14px 4px 4px; transform: none; }
+  .folder:hover, .folder.active { transform: translateY(-3px); }
+  .nameplate { position: relative; top: auto; left: auto; transform: none; margin: 22px auto 0; width: max-content; max-width: calc(100% - 32px); padding: 8px 18px; }
+  .np-name { font-size: 18px; }
+  .card-slot, .is-open .card-slot { position: relative; left: auto; top: auto; margin: 26px auto 0; transform: rotate(-2deg); }
+  .stage-intro .card-slot { animation: throw-m 0.9s cubic-bezier(0.15, 0.85, 0.25, 1) both; }
+  @keyframes throw-m { from { transform: translateX(110vw) rotate(-30deg); } to { transform: rotate(-2deg); } }
+  .is-open .card-slot { transform: rotate(-2deg) scale(0.85); margin-top: 10px; }
+  .sheet { position: relative; right: auto; top: auto; bottom: auto; width: auto; margin: 16px; padding: 30px 22px; overflow: visible; }
+  .desk-tools { position: fixed; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-intro .card-slot, .sheet, .knife { animation: none; }
+  .card-slot { transition: none; }
+}

@@ -347,3 +347,5 @@
     visibility: hidden;
   }
 }
+
+.bc-link.bc-active .bc-label { text-decoration: underline; text-underline-offset: 4px; }

@@ -4,9 +4,17 @@ import "./businessCard.css";
 
 type Lang = "en" | "fr";
 
+export type Section = "experience" | "projects" | "education" | "contact";
+
 interface BusinessCardProps {
   lang: Lang;
   cvHref: string;
+  /** When set, section links call this instead of jumping to an anchor. */
+  onNavigate?: (section: Section) => void;
+  /** Section currently open, highlighted on the back. */
+  active?: Section | null;
+  /** Start already flipped (menu side up). */
+  startFlipped?: boolean;
 }
 
 const NAME = "Marsel Bakashov";
@@ -69,9 +77,12 @@ function usePrefersReducedMotion(): boolean {
 const MAX_TILT_X = 7; // deg, vertical mouse movement
 const MAX_TILT_Y = 10; // deg, horizontal mouse movement
 
-export default function BusinessCard({ lang, cvHref }: BusinessCardProps) {
+export default function BusinessCard({ lang, cvHref, onNavigate, active = null, startFlipped = false }: BusinessCardProps) {
   const t = TEXT[lang];
-  const [flipped, setFlipped] = useState(false);
+  const [flipped, setFlipped] = useState(startFlipped);
+  useEffect(() => {
+    if (startFlipped) setFlipped(true);
+  }, [startFlipped]);
   const reducedMotion = usePrefersReducedMotion();
 
   const tiltRef = useRef<HTMLDivElement>(null);
@@ -203,9 +214,15 @@ export default function BusinessCard({ lang, cvHref }: BusinessCardProps) {
                     <li key={l.href}>
                       <a
                         ref={i === 0 ? firstLinkRef : undefined}
-                        className="bc-link"
+                        className={"bc-link" + (active === l.href.slice(1) ? " bc-active" : "")}
                         href={l.href}
                         tabIndex={flipped ? 0 : -1}
+                        aria-current={active === l.href.slice(1) ? "true" : undefined}
+                        onClick={(e) => {
+                          if (!onNavigate) return;
+                          e.preventDefault();
+                          onNavigate(l.href.slice(1) as Section);
+                        }}
                       >
                         <span className="bc-num" aria-hidden="true">
                           {NUMERALS[i]}

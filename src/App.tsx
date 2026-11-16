@@ -1,6 +1,6 @@
 import { useSettings } from "./settings";
 import { ui } from "./content";
-import ProPage from "./pages/ProPage";
+import DayPage from "./pages/DayPage";
 import NightPage from "./pages/NightPage";
 
 export default function App() {
@@ -24,7 +24,7 @@ export default function App() {
           </button>
         </div>
       </header>
-      <main>{night ? <NightPage /> : <ProPage />}</main>
+      <main>{night ? <NightPage /> : <DayPage />}</main>
     </>
   );
 }
