@@ -10,7 +10,6 @@ export default function App() {
   return (
     <>
       <header className="bar">
-        <span className="brand">{ui.name}</span>
         <div className="controls">
           <button
             className="pill pill-icon"

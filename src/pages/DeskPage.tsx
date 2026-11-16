@@ -11,8 +11,8 @@ import "./desk.css";
 type View = "home" | Section;
 
 const LABELS = {
-  en: { title: "Machine Learning · Mila", back: "Back to the card", experience: "Experience", hint: "Flip the card" },
-  fr: { title: "Apprentissage automatique · Mila", back: "Retour à la carte", experience: "Expérience", hint: "Retourne la carte" },
+  en: { title: "Machine Learning · Mila", back: "Back to center", experience: "Experience", hint: "Flip the card" },
+  fr: { title: "Apprentissage automatique · Mila", back: "Retour au centre", experience: "Expérience", hint: "Retourne la carte" },
 } as const;
 
 const orgLogo: Record<string, string | undefined> = {
@@ -79,11 +79,6 @@ export default function DeskPage() {
           <img src="/desk/brain.gif" alt="" />
         </figure>
         <Pen />
-        <div className="card-slot">
-          <BusinessCard lang={lang} cvHref={cv} onNavigate={(s) => setView(s)} active={view === "home" ? null : view} />
-          <p className="desk-hint">{t.hint}</p>
-        </div>
-
         {/* up: experience */}
         <div className="zone zone-experience" {...inert(view !== "experience")}>
           <div className="sheet-wrap">
@@ -130,9 +125,14 @@ export default function DeskPage() {
         </div>
       </div>
 
+      {/* the card never leaves: centred at home, docked in the corner elsewhere */}
+      <div className={`card-slot${view === "home" ? "" : " is-docked"}`}>
+        <BusinessCard lang={lang} cvHref={cv} onNavigate={(s) => setView(s)} active={view === "home" ? null : view} />
+        <p className="desk-hint">{t.hint}</p>
+      </div>
       {view !== "home" && (
-        <button className="back-pill" onClick={() => setView("home")}>
-          ← {t.back}
+        <button className="home-pill" onClick={() => setView("home")}>
+          {t.back}
         </button>
       )}
     </div>

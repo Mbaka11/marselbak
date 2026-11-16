@@ -108,9 +108,21 @@
   top: 54%;
   width: min(92vw, 420px);
   transform: translate(-50%, -50%) rotate(-3deg);
-  z-index: 4;
+  transform-origin: 50% 50%;
+  z-index: 25;
+  transition: left 1.2s cubic-bezier(0.7, 0, 0.2, 1), top 1.2s cubic-bezier(0.7, 0, 0.2, 1), transform 1.2s cubic-bezier(0.7, 0, 0.2, 1);
   animation: throw 1s cubic-bezier(0.15, 0.85, 0.25, 1) both;
 }
+/* docked: same corner for every section, grows back on hover so it stays readable */
+.card-slot.is-docked {
+  left: 22px;
+  top: calc(100% - 22px);
+  transform: translate(0, -100%) rotate(-2deg) scale(0.5);
+  transform-origin: 0 100%;
+  animation: none;
+}
+.card-slot.is-docked:hover, .card-slot.is-docked:focus-within { transform: translate(0, -100%) rotate(-1deg) scale(0.86); }
+.card-slot.is-docked .desk-hint { opacity: 0; }
 @keyframes throw {
   0% { transform: translate(120vw, -110%) rotate(-38deg) scale(1.1); }
   70% { transform: translate(-48%, -50%) rotate(-1deg); }
@@ -123,6 +135,7 @@
   font: italic 15px "Cormorant Garamond", Garamond, serif;
   color: rgba(60, 48, 36, 0.6);
   letter-spacing: 0.06em;
+  transition: opacity 0.4s;
 }
 
 /* ---- zones the camera visits ---- */
@@ -171,11 +184,10 @@
 .sheet-meta { display: block; font: 13px/1.4 ui-monospace, Consolas, monospace; color: #6d6257; }
 .sheet .logo { background: #fff; }
 
-.back-pill {
+.home-pill {
   position: absolute;
-  left: 50%;
+  right: 22px;
   bottom: 22px;
-  transform: translateX(-50%);
   z-index: 30;
   padding: 8px 18px;
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -187,8 +199,8 @@
   cursor: pointer;
   backdrop-filter: blur(6px);
 }
-.back-pill:hover { background: rgba(18, 14, 11, 0.95); }
-.back-pill:focus-visible { outline: 2px solid #efe3cc; outline-offset: 2px; }
+.home-pill:hover { background: rgba(18, 14, 11, 0.95); }
+.home-pill:focus-visible { outline: 2px solid #efe3cc; outline-offset: 2px; }
 
 @media (max-width: 900px) {
   .view-projects .world { transform: translateX(-100%); }
@@ -197,6 +209,7 @@
   .nameplate { top: 18px; padding: 8px 22px; }
   .np-name { font-size: 18px; letter-spacing: 0.16em; }
   .card-slot { top: 52%; }
+  .card-slot.is-docked { left: 12px; top: calc(100% - 12px); transform: translate(0, -100%) rotate(-2deg) scale(0.4); }
   .zone-projects { left: 102%; width: 96%; }
   .zone-education { left: -98%; width: 96%; }
   .zone-experience { width: 94%; }

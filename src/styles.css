@@ -39,7 +39,7 @@ a:hover { text-decoration: underline; }
   top: 0;
   z-index: 10;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding: 14px 24px;
   background: color-mix(in srgb, var(--bg) 85%, transparent);
