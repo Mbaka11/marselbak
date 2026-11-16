@@ -1,7 +1,8 @@
 import { useSettings } from "../settings";
 import { education, experience, links, projects, ui } from "../content";
 import Logo from "../components/Logo";
-import NeuralName from "../components/NeuralName";
+import Collapsible from "../components/Collapsible";
+import HeroNetwork from "../components/HeroNetwork";
 import { GithubIcon, LinkedinIcon, MailIcon } from "../components/icons";
 
 const orgLogo: Record<string, string | undefined> = {
@@ -24,44 +25,52 @@ export default function ProPage() {
   return (
     <div className="page">
       <section className="hero">
-        <span className="chip">
-          <span className="dot" />
-          {lang === "fr" ? "En ce moment : McKesson, science des données et ML" : "Now: Data Science & ML at McKesson"}
-        </span>
-        <NeuralName text={ui.name} />
-        <p className="role">
-          <Logo src="/logos/mila.png" name="Mila" size={26} />
-          <span>
-            {ui.role[lang].replace(" Mila", " ")}
-            <a href={links.mila} target="_blank" rel="noreferrer">
-              Mila
-            </a>
+        <HeroNetwork />
+        <div className="hero-content">
+          <span className="chip">
+            <span className="dot" />
+            {lang === "fr" ? "En ce moment : McKesson, science des données et ML" : "Now: Data Science & ML at McKesson"}
           </span>
-        </p>
-        <p className="lead">{ui.tagline[lang]}</p>
-        <div className="actions">
-          <a className="btn primary" href={cv} target="_blank" rel="noreferrer">
-            {ui.cv[lang]}
-          </a>
-          <a className="btn" href="#contact">
-            {ui.nav.contact[lang]}
-          </a>
+          <h1 className="name">{ui.name}</h1>
+          <p className="role">
+            <Logo src="/logos/mila.png" name="Mila" size={26} />
+            <span>
+              {ui.role[lang].replace(" Mila", " ")}
+              <a href={links.mila} target="_blank" rel="noreferrer">
+                Mila
+              </a>
+            </span>
+          </p>
+          <p className="lead">{ui.tagline[lang]}</p>
+          <div className="actions">
+            <a className="btn primary" href={cv} target="_blank" rel="noreferrer">
+              {ui.cv[lang]}
+            </a>
+            <a className="btn" href="#contact">
+              {ui.nav.contact[lang]}
+            </a>
+          </div>
         </div>
       </section>
 
       <section id="experience">
         <h2>{ui.nav.experience[lang]}</h2>
         {experience.map((e) => (
-          <article className="card" key={e.org}>
-            <div className="row">
-              <div className="head">
+          <Collapsible
+            key={e.org}
+            markdown={`## ${e.org}\n### ${e.title[lang]} (${e.period})\n\n${e.points[lang].map((p) => "- " + p).join("\n")}`}
+            header={
+              <>
                 <Logo src={orgLogo[e.org]} name={e.org} />
-                <h3>
-                  {e.org} <span className="muted">· {e.title[lang]}</span>
-                </h3>
-              </div>
-              <span className="muted">{e.period}</span>
-            </div>
+                <div className="stack">
+                  <strong>{e.title[lang]}</strong>
+                  <span className="muted">
+                    {e.org} · {e.period}
+                  </span>
+                </div>
+              </>
+            }
+          >
             <ul>
               {e.points[lang].map((p) => (
                 <li key={p}>{p}</li>
@@ -74,28 +83,36 @@ export default function ProPage() {
                 </span>
               ))}
             </div>
-          </article>
+          </Collapsible>
         ))}
       </section>
 
       <section id="projects">
         <h2>{ui.nav.projects[lang]}</h2>
-        <div className="grid">
-          {projects.map((p) => (
-            <a className="card link project" href={p.url} target="_blank" rel="noreferrer" key={p.name}>
-              <img className="cover" src={p.image} alt="" loading="lazy" />
-              <h3>{p.name}</h3>
-              <p>{p.desc[lang]}</p>
-              <div className="tags">
-                {p.tags.map((t) => (
-                  <span className="tag" key={t}>
-                    {t}
-                  </span>
-                ))}
+        {projects.map((p) => (
+          <Collapsible
+            key={p.name}
+            markdown={`# ${p.name}\n\n${p.desc[lang]}\n\nstack: ${p.tags.join(", ")}`}
+            header={
+              <div className="stack">
+                <strong>{p.name}</strong>
+                <span className="tags inline">
+                  {p.tags.map((t) => (
+                    <span className="tag" key={t}>
+                      {t}
+                    </span>
+                  ))}
+                </span>
               </div>
+            }
+          >
+            <img className="cover" src={p.image} alt="" loading="lazy" />
+            <p className="desc">{p.desc[lang]}</p>
+            <a className="btn" href={p.url} target="_blank" rel="noreferrer">
+              <GithubIcon /> GitHub
             </a>
-          ))}
-        </div>
+          </Collapsible>
+        ))}
       </section>
 
       <section id="education">

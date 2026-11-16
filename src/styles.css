@@ -5,6 +5,7 @@
   --card: #f4f5f7;
   --line: #d5d8de;
   --accent: #1f6feb;
+  --accent-rgb: 31,111,235;
   --tag: #e1e5ec;
   font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
@@ -16,6 +17,7 @@
   --card: #12151d;
   --line: #222736;
   --accent: #3ddc97;
+  --accent-rgb: 61,220,151;
   --tag: #1a2030;
 }
 
@@ -146,19 +148,37 @@ body::before {
 section { animation: rise 0.6s both; }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
 
-/* ---- neural name ---- */
-.neural { position: relative; margin: 0 0 8px; }
-.neural h1 { position: relative; margin: 0; font-size: clamp(40px, 8vw, 72px); line-height: 1.1; }
-.neural .ch { display: inline-block; color: var(--muted); opacity: 0.25; animation: fire 0.7s both; animation-delay: calc(var(--i) * 70ms + 300ms); }
-.neural .ch.sp { width: 0.3em; }
-@keyframes fire {
-  0% { opacity: 0.25; color: var(--muted); }
-  40% { opacity: 1; color: var(--accent); text-shadow: 0 0 18px var(--accent); transform: translateY(-2px); }
-  100% { opacity: 1; color: var(--fg); text-shadow: none; transform: none; }
+/* ---- hero network ---- */
+.hero { position: relative; }
+.hero-net {
+  position: absolute; inset: 0 -40px; width: calc(100% + 80px); height: 100%;
+  z-index: 0; pointer-events: none;
+  mask-image: radial-gradient(ellipse at 40% 50%, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 40% 50%, #000 30%, transparent 75%);
 }
-.neural svg { position: absolute; inset: -18px -10px; width: calc(100% + 20px); height: calc(100% + 36px); pointer-events: none; overflow: visible; }
-.neural line { stroke: var(--accent); stroke-width: 1; opacity: 0; animation: edge 0.8s both; animation-delay: calc(var(--d) * 1ms); }
-.neural circle { fill: var(--accent); opacity: 0; animation: node 1.2s both; animation-delay: calc(var(--d) * 1ms); }
-@keyframes edge { 0% { opacity: 0; } 40% { opacity: 0.7; } 100% { opacity: 0.18; } }
-@keyframes node { 0% { opacity: 0; r: 1; } 35% { opacity: 1; r: 5; } 100% { opacity: 0.45; r: 2.5; } }
-@media (prefers-reduced-motion: reduce) { .neural * { animation: none !important; opacity: 1 !important; } .neural .ch { color: var(--fg); } }
+.hero-content { position: relative; z-index: 1; }
+.name { font-size: clamp(40px, 8vw, 72px); margin: 0 0 8px; line-height: 1.05; }
+
+/* ---- collapsible rows ---- */
+.acc { border: 1px solid var(--line); border-radius: 12px; background: var(--card); margin-bottom: 10px; overflow: hidden; transition: border-color 0.2s; }
+.acc:hover, .acc.open { border-color: var(--accent); }
+.acc-head { all: unset; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 14px 18px; cursor: pointer; }
+.acc-title { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.stack { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.tags.inline { display: flex; flex-wrap: wrap; gap: 6px; }
+.chev { font-size: 22px; color: var(--muted); transition: transform 0.25s; }
+.acc.open .chev { transform: rotate(90deg); color: var(--accent); }
+.acc-body { padding: 0 18px 18px; }
+.md {
+  margin: 0; padding: 14px 16px; border-radius: 8px; background: #0b0d12; color: #9be9c1;
+  font: 13px/1.6 ui-monospace, "Cascadia Code", Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.caret { display: inline-block; width: 7px; height: 14px; background: #9be9c1; vertical-align: -2px; animation: blink 0.9s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.deploy { color: #0b0d12; background: #3ddc97; padding: 1px 8px; border-radius: 4px; font-weight: 700; animation: flash 0.65s; }
+@keyframes flash { 0% { opacity: 0; transform: scale(0.9); } 40% { opacity: 1; transform: scale(1.06); } 100% { transform: none; } }
+.reveal { animation: pop 0.45s cubic-bezier(.2,1.2,.3,1) both; }
+@keyframes pop { from { opacity: 0; transform: translateY(10px) scale(0.98); filter: blur(4px); } }
+.reveal ul { margin: 4px 0 12px; padding-left: 18px; }
+.reveal .cover { width: 100%; max-height: 220px; aspect-ratio: 2/1; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 12px; background: var(--tag); }
+.reveal .desc { color: var(--muted); margin: 0 0 14px; }
