@@ -3,6 +3,7 @@ import { education, experience, links, projects, ui } from "../content";
 import Logo from "../components/Logo";
 import Collapsible from "../components/Collapsible";
 import HeroNetwork from "../components/HeroNetwork";
+import BusinessCard from "../components/BusinessCard";
 import { GithubIcon, LinkedinIcon, MailIcon } from "../components/icons";
 
 const orgLogo: Record<string, string | undefined> = {
@@ -25,8 +26,8 @@ export default function ProPage() {
   return (
     <div className="page">
       <section className="hero">
-        <HeroNetwork />
         <div className="hero-content">
+          <HeroNetwork />
           <span className="chip">
             <span className="dot" />
             {lang === "fr" ? "En ce moment : McKesson, science des données et ML" : "Now: Data Science & ML at McKesson"}
@@ -50,6 +51,9 @@ export default function ProPage() {
               {ui.nav.contact[lang]}
             </a>
           </div>
+        </div>
+        <div className="hero-card">
+          <BusinessCard lang={lang} cvHref={cv} />
         </div>
       </section>
 

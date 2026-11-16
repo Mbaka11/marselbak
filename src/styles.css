@@ -151,12 +151,13 @@ section { animation: rise 0.6s both; }
 /* ---- hero network ---- */
 .hero { position: relative; }
 .hero-net {
-  position: absolute; inset: 0 -40px; width: calc(100% + 80px); height: 100%;
+  position: absolute; inset: -24px 0; width: 100%; height: calc(100% + 48px);
   z-index: 0; pointer-events: none;
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
 .hero-content { position: relative; z-index: 1; }
+.hero-content > *:not(.hero-net) { position: relative; z-index: 1; }
 .name { font-size: clamp(40px, 8vw, 72px); margin: 0 0 8px; line-height: 1.05; }
 
 /* ---- collapsible rows ---- */
@@ -189,3 +190,11 @@ section { animation: rise 0.6s both; }
 .pcard:hover { transform: translateY(-3px); border-color: var(--accent); text-decoration: none; }
 .pcard .top { display: flex; align-items: center; gap: 12px; }
 .pcard p { margin: 0; color: var(--muted); font-size: 15px; flex: 1; }
+
+/* ---- hero with business card ---- */
+.hero { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+.hero-card { position: relative; z-index: 1; display: flex; justify-content: center; }
+@media (min-width: 1100px) {
+  .page { max-width: 1080px; }
+  .hero { grid-template-columns: 1.15fr 1fr; }
+}
