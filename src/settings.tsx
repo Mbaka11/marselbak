@@ -8,6 +8,8 @@ type Settings = {
   mode: Mode;
   setLang: (l: Lang) => void;
   setMode: (m: Mode) => void;
+  muted: boolean;
+  setMuted: (m: boolean) => void;
 };
 
 const Ctx = createContext<Settings | null>(null);
@@ -28,6 +30,22 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   // Day (pro page) is always the default entry point.
   const [mode, setMode] = useState<Mode>(() => read<Mode>("mode", ["day", "night"], "day"));
 
+  const [muted, setMuted] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem("muted") === "1";
+    } catch {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("muted", muted ? "1" : "0");
+    } catch {
+      /* ignore */
+    }
+  }, [muted]);
+
   useEffect(() => {
     document.documentElement.dataset.mode = mode;
     document.documentElement.lang = lang;
@@ -39,7 +57,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     }
   }, [lang, mode]);
 
-  return <Ctx.Provider value={{ lang, mode, setLang, setMode }}>{children}</Ctx.Provider>;
+  return <Ctx.Provider value={{ lang, mode, setLang, setMode, muted, setMuted }}>{children}</Ctx.Provider>;
 }
 
 export function useSettings() {

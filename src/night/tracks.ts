@@ -10,7 +10,8 @@ export const tracks: Track[] = [
   { file: "fakemink_under-your-skin.mp3", artist: "Fakemink", title: "Under Your Skin" },
   { file: "fakemink-skepta_chiltern-firehouse.mp3", artist: "Fakemink, Skepta", title: "Chiltern Firehouse" },
   { file: "novaj_always-on-my-mind-let-u-go.mp3", artist: "Novaj", title: "Always on My Mind (Let U Go)" },
-  { file: "day_no-im-not-a-human.mp3", artist: "Day", title: "No, I'm Not a Human" },
+  { file: "day_no-im-not-a-human.mp3", artist: "Scapecore, The Lonely Tree, Arier.", title: "No, I'm Not a Human" },
 ];
 
+export const coverUrl = (t: Track) => `/covers/${t.file.replace(/\.mp3$/, ".jpg")}`;
 export const trackUrl = (t: Track) => `/music/${t.file}`;

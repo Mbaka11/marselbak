@@ -3,7 +3,7 @@ import { links, projects } from "../content";
 import { useSettings } from "../settings";
 import RainBackground from "../night/RainBackground";
 import Orbit from "../night/Orbit";
-import { tracks, trackUrl } from "../night/tracks";
+import { tracks, trackUrl, coverUrl } from "../night/tracks";
 import { fetchViews } from "../night/views";
 import "../night/night.css";
 
@@ -89,7 +89,7 @@ function useTypewriter(lang: "en" | "fr") {
 }
 
 export default function NightPage() {
-  const { lang } = useSettings();
+  const { lang, muted } = useSettings();
   const t = T[lang];
   const tw = useTypewriter(lang);
   const audio = useRef<HTMLAudioElement>(null);
@@ -99,7 +99,7 @@ export default function NightPage() {
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(0);
   const [dur, setDur] = useState(0);
-  const [volume, setVolume] = useState(0.5);
+  const [volume, setVolume] = useState(0.2);
   const [glass, setGlass] = useState(0.7);
   const [scrollP, setScrollP] = useState(0);
   const [inView, setInView] = useState(false);
@@ -130,6 +130,11 @@ export default function NightPage() {
   useEffect(() => {
     if (audio.current) audio.current.volume = volume;
   }, [volume]);
+  useEffect(() => {
+    if (audio.current) audio.current.muted = muted;
+  }, [muted, idx]);
+  const [coverOk, setCoverOk] = useState(true);
+  useEffect(() => setCoverOk(true), [idx]);
 
   const toggle = () => {
     const a = audio.current;
@@ -250,7 +255,11 @@ export default function NightPage() {
           <div className="nt-player" style={{ ...glassStyle, borderColor: `rgba(255,255,255,${0.2 * (glass > 0 ? 1 : 0)})` }}>
             <Orbit radius={15} duration={6} />
             <div className="nt-art" style={{ background: cover(track.title) }} aria-hidden>
-              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 18V6l11-2v12.2a3 3 0 1 1-2-2.8V7.3L11 8.4V18a3 3 0 1 1-2-2.8z" /></svg>
+              {coverOk ? (
+                <img src={coverUrl(track)} alt="" onError={() => setCoverOk(false)} />
+              ) : (
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 18V6l11-2v12.2a3 3 0 1 1-2-2.8V7.3L11 8.4V18a3 3 0 1 1-2-2.8z" /></svg>
+              )}
             </div>
             <div className="nt-meta">
               <span className="nt-mtitle">{track.title}</span>
@@ -288,7 +297,7 @@ export default function NightPage() {
           </div>
 
           <div className="nt-controls" style={{ background: `rgba(0,0,0,${glass})` }}>
-            <button className="nt-icon" onClick={() => setVolume((v) => (v > 0 ? 0 : 0.5))} aria-label="Mute">
+            <button className="nt-icon" onClick={() => setVolume((v) => (v > 0 ? 0 : 0.2))} aria-label="Mute">
               <svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor" />{volume > 0 && <path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" />}</svg>
             </button>
             <input className="nt-slider" type="range" min={0} max={1} step={0.01} value={volume} onChange={(e) => setVolume(Number(e.target.value))} aria-label="Volume" />

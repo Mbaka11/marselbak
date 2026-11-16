@@ -1,50 +1,35 @@
-/* Education: clear plastic raincoat + axe. Prefix ec- */
-.ec-root { position: relative; width: 100%; height: 100%; box-sizing: border-box; overflow: hidden; }
-.ec-close {
-  position: absolute; top: 4px; right: 6px; z-index: 6; width: 34px; height: 34px; border-radius: 50%;
-  border: 0; cursor: pointer; font-size: 24px; line-height: 1; color: #f1e3c0; background: rgba(20, 12, 8, 0.6);
-  transition: transform 0.25s, background 0.25s;
-}
-.ec-close:hover { background: rgba(20, 12, 8, 0.85); transform: rotate(90deg); }
-.ec-close:focus-visible { outline: 2px solid #f1e3c0; outline-offset: 2px; }
+/* Education: part of a clear plastic raincoat entering from the top edge, an axe on the table. Prefix ec- */
+.ec-root { position: relative; width: 100%; height: 100%; overflow: hidden; }
 
 .ec-coat {
-  position: absolute; right: 2%; top: 0; height: 100%; aspect-ratio: 400 / 620; max-width: 62%;
-  filter: drop-shadow(10px 18px 14px rgba(0, 0, 0, 0.55));
-  animation: ec-in 0.8s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+  position: absolute; left: 50%; top: -74%; height: 158%; aspect-ratio: 400 / 620; transform: translateX(-50%);
+  filter: drop-shadow(10px 18px 14px rgba(40, 30, 20, 0.35));
 }
-@keyframes ec-in { from { transform: translateX(60%) rotate(5deg); opacity: 0; } }
 .ec-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 
 .ec-tag {
-  position: absolute; left: 17%; top: 27%; width: 64%; box-sizing: border-box; padding: 14px 14px 10px;
+  position: absolute; left: 27%; top: 70%; width: 46%; box-sizing: border-box; padding: 16px 18px 12px;
   background: linear-gradient(180deg, #f3eee2, #e8e1d1); color: #1e1c19;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45); transform: rotate(-1.2deg);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35); transform: rotate(-1.2deg);
   font-family: "Cormorant Garamond", Garamond, "Times New Roman", serif;
 }
 .ec-stitch { position: absolute; inset: 4px; border: 1px dashed rgba(60, 50, 35, 0.4); pointer-events: none; }
-.ec-title { margin: 0 0 8px; text-align: center; font-size: 18px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #1e1c19; }
-.ec-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
-.ec-item { display: grid; gap: 1px; padding-bottom: 8px; border-bottom: 1px solid rgba(30, 28, 25, 0.18); }
+.ec-title { margin: 0 0 10px; text-align: center; font-size: 19px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #1e1c19; }
+.ec-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.ec-item { display: grid; gap: 1px; padding-bottom: 9px; border-bottom: 1px solid rgba(30, 28, 25, 0.18); }
 .ec-item:last-child { border-bottom: 0; padding-bottom: 0; }
-.ec-degree { font-size: 14px; font-weight: 600; line-height: 1.2; }
-.ec-school { font-size: 13px; font-style: italic; }
+.ec-degree { font-size: 15px; font-weight: 600; line-height: 1.2; }
+.ec-school { font-size: 14px; font-style: italic; }
 .ec-period { font: 11px ui-monospace, Consolas, monospace; color: #5a5348; }
-.ec-fine { display: block; margin-top: 9px; text-align: center; font: 9px ui-monospace, Consolas, monospace; letter-spacing: 0.1em; color: #7a7366; text-transform: uppercase; }
+.ec-fine { display: block; margin-top: 10px; text-align: center; font: 9px ui-monospace, Consolas, monospace; letter-spacing: 0.1em; color: #7a7366; text-transform: uppercase; }
 
 .ec-axe {
-  position: absolute; left: -4%; bottom: 7%; width: 74%; z-index: 4; transform: rotate(-14deg); transform-origin: 20% 50%;
-  filter: drop-shadow(8px 14px 10px rgba(0, 0, 0, 0.6));
-  animation: ec-axe-in 0.9s 0.2s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+  position: absolute; left: -6%; bottom: 5%; width: 78%; z-index: 4; transform: rotate(-12deg); transform-origin: 20% 50%;
+  filter: drop-shadow(8px 14px 10px rgba(40, 30, 20, 0.4));
 }
-@keyframes ec-axe-in { from { transform: translateX(-40%) rotate(-30deg); opacity: 0; } }
 
 @media (max-width: 900px) {
-  .ec-root { min-height: 560px; }
-  .ec-coat { max-width: 70%; }
-  .ec-axe { width: 80%; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ec-coat, .ec-axe { animation: none; }
-  .ec-close { transition: none; }
+  .ec-coat { top: -60%; height: 140%; }
+  .ec-tag { left: 20%; width: 60%; top: 66%; }
+  .ec-axe { width: 96%; left: -10%; }
 }

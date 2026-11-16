@@ -1,16 +1,17 @@
 import { links } from "../content";
 import "./contactBlood.css";
 
-type Props = { lang: "en" | "fr"; onClose: () => void };
+type Props = { lang: "en" | "fr" };
 
-// Words are written with a finger in blood (public/desk/contact-blood.png,
-// rendered by a height-field script). Boxes are in image pixels.
-const W = 1400;
-const H = 980;
+// public/desk/contact-pool.png: a pool of blood with the logos and text wiped
+// through it by a finger (rendered by a height-field script).
+// Boxes are in image pixels.
+const W = 1900;
+const H = 1100;
 const BOXES = {
-  mail: [90, 100, 616, 330],
-  in: [148, 388, 1000, 640],
-  gh: [107, 678, 835, 960],
+  mail: [260, 210, 1565, 390],
+  in: [260, 460, 1092, 640],
+  gh: [260, 710, 1085, 890],
 } as const;
 
 const pct = (b: readonly number[]) => ({
@@ -20,7 +21,7 @@ const pct = (b: readonly number[]) => ({
   height: `${((b[3] - b[1]) / H) * 100}%`,
 });
 
-export default function ContactBlood({ lang, onClose }: Props) {
+export default function ContactBlood({ lang }: Props) {
   const items = [
     { key: "mail", href: `mailto:${links.email}`, label: "Email", title: links.email, ext: false },
     { key: "in", href: links.linkedin, label: "LinkedIn", title: lang === "fr" ? "Profil professionnel" : "Professional profile", ext: true },
@@ -29,11 +30,8 @@ export default function ContactBlood({ lang, onClose }: Props) {
 
   return (
     <section className="cb-root" aria-label="Contact">
-      <button type="button" className="cb-close" onClick={onClose} aria-label={lang === "fr" ? "Fermer" : "Close"}>
-        ×
-      </button>
       <div className="cb-stage">
-        <img className="cb-writing" src="/desk/contact-blood.png" alt="" draggable={false} />
+        <img className="cb-pool" src="/desk/contact-pool.png" alt="" draggable={false} />
         {items.map((it) => (
           <a
             key={it.key}

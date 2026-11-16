@@ -1,18 +1,14 @@
 import { education } from "../content";
 import "./educationCoat.css";
 
-type Props = { lang: "en" | "fr"; onClose: () => void };
+type Props = { lang: "en" | "fr" };
 
 const BODY =
   "M150 40 C118 48 72 60 52 90 L14 360 L66 372 L92 200 L84 596 L316 596 L308 200 L334 372 L386 360 L348 90 C328 60 282 48 250 40 L200 118 Z";
 
-export default function EducationCoat({ lang, onClose }: Props) {
+export default function EducationCoat({ lang }: Props) {
   return (
     <section className="ec-root" aria-labelledby="ec-title">
-      <button type="button" className="ec-close" onClick={onClose} aria-label={lang === "fr" ? "Fermer" : "Close"}>
-        ×
-      </button>
-
       {/* Clear plastic raincoat, waist strap closed */}
       <div className="ec-coat">
         <svg viewBox="0 0 400 620" className="ec-svg" aria-hidden="true">
