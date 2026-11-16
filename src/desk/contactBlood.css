@@ -1,0 +1,184 @@
+/* Contact: blood pool homage. All classes prefixed cb- */
+
+.cb-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.cb-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  z-index: 20;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(240, 220, 205, 0.4);
+  border-radius: 50%;
+  background: rgba(20, 6, 6, 0.65);
+  color: #f3e3d3;
+  font: 400 20px/1 "Cormorant Garamond", Georgia, serif;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.cb-close:hover { background: rgba(20, 6, 6, 0.9); transform: rotate(90deg); }
+.cb-close:focus-visible { outline: 2px solid #ffd9c7; outline-offset: 2px; }
+
+/* ---------- the pool ---------- */
+.cb-pool {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.45));
+}
+
+.cb-spread {
+  transform-box: fill-box;
+  transform-origin: 46% 46%;
+  animation: cb-spread 1.6s cubic-bezier(0.12, 0.7, 0.2, 1) both;
+}
+@keyframes cb-spread {
+  0% { transform: scale(0.08, 0.06); opacity: 0; }
+  12% { opacity: 1; }
+  60% { transform: scale(0.9, 0.86); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.cb-drop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cb-drop 0.4s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+@keyframes cb-drop {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- links ---------- */
+.cb-content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  width: min(390px, 72%);
+  transform: translate(-50%, -50%);
+}
+
+.cb-title {
+  margin: 0 0 12px;
+  font: 600 15px/1.2 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #f3e3d3;
+  /* engraved: dark cut above, faint light lip below */
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.7), 0 1px 0 rgba(255, 140, 140, 0.18);
+  animation: cb-fade 0.6s ease 0.6s both;
+}
+
+.cb-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cb-item { animation: cb-fade 0.6s ease both; }
+@keyframes cb-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.cb-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 56px;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #f3e3d3;
+  text-decoration: none;
+  background: linear-gradient(180deg, rgba(18, 0, 2, 0.5), rgba(40, 0, 4, 0.32));
+  /* recessed into the surface */
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.6),
+    inset 0 -1px 0 rgba(255, 120, 120, 0.14),
+    0 1px 0 rgba(255, 160, 160, 0.08);
+  transition: background 0.2s, transform 0.2s;
+}
+.cb-link:hover {
+  background: linear-gradient(180deg, rgba(18, 0, 2, 0.68), rgba(60, 0, 6, 0.5));
+  transform: translateX(3px);
+}
+.cb-link:focus-visible {
+  outline: 2px solid #ffd9c7;
+  outline-offset: 3px;
+}
+
+.cb-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: #ff6b6b;
+  background: rgba(10, 0, 1, 0.55);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8), 0 1px 0 rgba(255, 140, 140, 0.15);
+}
+
+.cb-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.cb-label {
+  font: 600 18px/1.15 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: 0.08em;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75), 0 1px 0 rgba(255, 140, 140, 0.15);
+}
+.cb-sub {
+  font: 12.5px/1.3 ui-monospace, "Cascadia Code", Consolas, monospace;
+  color: #ffb3a8;
+  overflow-wrap: anywhere;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6);
+}
+
+.cb-arrow {
+  flex: none;
+  color: #ff8f85;
+  font-size: 16px;
+  transition: transform 0.2s;
+}
+.cb-link:hover .cb-arrow { transform: translate(2px, -2px); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 899px) {
+  .cb-root { height: auto; min-height: min(560px, 120vw); }
+}
+@media (max-width: 480px) {
+  .cb-content { width: 84%; }
+  .cb-link { gap: 10px; padding: 8px 10px; min-height: 52px; }
+  .cb-icon { width: 32px; height: 32px; }
+  .cb-label { font-size: 16px; }
+  .cb-sub { font-size: 11.5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cb-spread,
+  .cb-drop,
+  .cb-title,
+  .cb-item { animation: none; }
+  .cb-link,
+  .cb-arrow,
+  .cb-close { transition: none; }
+}
