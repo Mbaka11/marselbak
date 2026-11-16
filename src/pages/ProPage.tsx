@@ -6,7 +6,7 @@ import { GithubIcon, LinkedinIcon, MailIcon } from "../components/icons";
 
 const orgLogo: Record<string, string | undefined> = {
   McKesson: "/logos/mckesson.png",
-  "Intact Insurance": undefined,
+  "Intact Insurance": "/logos/intact.webp",
   "Radio-Canada / CBC": "/logos/radio-canada.png",
   Stingray: "/logos/stingray.png",
 };
