@@ -12,8 +12,8 @@ export const ui = {
   name: "Marsel Bakashov",
   role: { en: "Master's in Machine Learning at Mila", fr: "Maîtrise en apprentissage automatique à Mila" } as L,
   tagline: {
-    en: "I turn machine learning into tools people actually use: reinforcement learning, AI agents, real-world data.",
-    fr: "Je transforme l'apprentissage automatique en outils réellement utilisés : apprentissage par renforcement, agents IA, données réelles.",
+    en: "Machine learning, reinforcement learning and AI agents, built to work outside the notebook.",
+    fr: "Apprentissage automatique, apprentissage par renforcement et agents IA, conçus pour fonctionner hors du notebook.",
   } as L,
   nav: {
     experience: { en: "Experience", fr: "Expérience" } as L,
@@ -90,24 +90,64 @@ export const experience = [
 
 export const projects = [
   {
-    name: "GravityGuyML",
-    url: "https://github.com/Mbaka11/Gravity-Guy-ML",
-    image: "https://opengraph.githubassets.com/1/Mbaka11/Gravity-Guy-ML",
-    desc: {
-      en: "Reinforcement learning side-scroller: a Gymnasium-compatible Pygame environment with procedural generation and deep RL agents (DQN, PPO, SAC, A2C).",
-      fr: "Jeu à défilement en apprentissage par renforcement : environnement Pygame compatible Gymnasium, génération procédurale et agents RL profonds (DQN, PPO, SAC, A2C).",
-    } as L,
-    tags: ["Python", "Deep RL", "Gymnasium"],
-  },
-  {
     name: "ApplyPilot",
     url: "https://github.com/Mbaka11/ApplyPilot",
     image: "https://opengraph.githubassets.com/1/Mbaka11/ApplyPilot",
     desc: {
-      en: "AI job-application agent: a local Chrome extension and server that analyze postings, pick the best CV, draft cover letters and autofill forms. The user always submits.",
-      fr: "Agent de candidature : extension Chrome et serveur locaux qui analysent les offres, choisissent le meilleur CV, rédigent la lettre et remplissent les formulaires. C'est toujours l'utilisateur qui soumet.",
+      en: "Local-first Chrome extension for internship discovery and applications: source filters, Workday autofill, cover letters and tracking. It never submits on its own.",
+      fr: "Extension Chrome locale pour trouver des stages et postuler : filtres de sources, remplissage Workday, lettres de motivation et suivi. Elle ne soumet jamais seule.",
     } as L,
-    tags: ["JavaScript", "Node.js", "LLM"],
+    tags: ["JavaScript", "Chrome extension", "LLM"],
+  },
+  {
+    name: "ECG-AI-KG",
+    url: "https://github.com/Mbaka11/ECG-AI-KG",
+    image: "https://opengraph.githubassets.com/1/Mbaka11/ECG-AI-KG",
+    desc: {
+      en: "Research project: AI-assisted interpretation of paper ECGs from a smartphone photo, for remote primary care in Kyrgyzstan.",
+      fr: "Projet de recherche : interprétation assistée par IA d'ECG papier à partir d'une photo de téléphone, pour les soins primaires à distance au Kirghizistan.",
+    } as L,
+    tags: ["Python", "Healthcare AI", "Knowledge graph"],
+  },
+  {
+    name: "GravityGuyML",
+    url: "https://github.com/Mbaka11/Gravity-Guy-ML",
+    image: "https://opengraph.githubassets.com/1/Mbaka11/Gravity-Guy-ML",
+    desc: {
+      en: "A fast side-scroller where deep RL agents (DQN, PPO, SAC, A2C) learn when to flip gravity to survive. Gymnasium-compatible, with procedural levels.",
+      fr: "Un jeu à défilement où des agents RL profonds (DQN, PPO, SAC, A2C) apprennent quand inverser la gravité pour survivre. Compatible Gymnasium, niveaux procéduraux.",
+    } as L,
+    tags: ["Python", "Deep RL", "Gymnasium"],
+  },
+  {
+    name: "EvoTribes",
+    url: "https://github.com/Mbaka11/evo-tribes-genetic-tribes-sim",
+    image: "https://opengraph.githubassets.com/1/Mbaka11/evo-tribes-genetic-tribes-sim",
+    desc: {
+      en: "A modular genetic multi-agent simulation built with Gymnasium to study emergent group behavior and alignment failures.",
+      fr: "Simulation génétique multi-agents modulaire, construite avec Gymnasium, pour étudier les comportements de groupe émergents et les échecs d'alignement.",
+    } as L,
+    tags: ["Python", "Multi-agent", "Gymnasium"],
+  },
+  {
+    name: "HR Policy RAG Agent",
+    url: "https://github.com/Mbaka11/hr-policy-ai-agent",
+    image: "https://opengraph.githubassets.com/1/Mbaka11/hr-policy-ai-agent",
+    desc: {
+      en: "A retrieval-augmented AI agent that answers employee HR policy questions from PDFs, intranet pages and documents.",
+      fr: "Un agent IA à récupération augmentée qui répond aux questions des employés sur les politiques RH à partir de PDF, de pages intranet et de documents.",
+    } as L,
+    tags: ["Python", "RAG", "LLM agents"],
+  },
+  {
+    name: "Opening Range Bot",
+    url: "https://github.com/Mbaka11/OpeningRangeTradingStrategy",
+    image: "https://opengraph.githubassets.com/1/Mbaka11/OpeningRangeTradingStrategy",
+    desc: {
+      en: "Paper-trading bot and pre-registered research log for an intraday opening-range strategy on the Nasdaq-100, with daily results posted publicly.",
+      fr: "Robot de paper trading et journal de recherche pré-enregistré pour une stratégie d'ouverture intrajournalière sur le Nasdaq-100, avec résultats quotidiens publiés.",
+    } as L,
+    tags: ["Python", "Quant", "Backtesting"],
   },
 ];
 

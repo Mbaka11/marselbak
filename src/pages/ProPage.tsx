@@ -1,6 +1,7 @@
 import { useSettings } from "../settings";
 import { education, experience, links, projects, ui } from "../content";
 import Logo from "../components/Logo";
+import NeuralName from "../components/NeuralName";
 import { GithubIcon, LinkedinIcon, MailIcon } from "../components/icons";
 
 const orgLogo: Record<string, string | undefined> = {
@@ -12,7 +13,7 @@ const orgLogo: Record<string, string | undefined> = {
 
 const schoolLogo: Record<string, string | undefined> = {
   "Professional Master's in Machine Learning": "/logos/mila.png",
-  "Bachelor of Software Engineering": undefined,
+  "Bachelor of Software Engineering": "/logos/polytechnique.png",
   "Exchange, Computer Engineering": "/logos/korea.png",
 };
 
@@ -27,7 +28,7 @@ export default function ProPage() {
           <span className="dot" />
           {lang === "fr" ? "En ce moment : McKesson, science des données et ML" : "Now: Data Science & ML at McKesson"}
         </span>
-        <h1 className="gradient">{ui.name}</h1>
+        <NeuralName text={ui.name} />
         <p className="role">
           <Logo src="/logos/mila.png" name="Mila" size={26} />
           <span>

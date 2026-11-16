@@ -1,11 +1,11 @@
 :root {
-  --bg: #fafaf7;
+  --bg: #e9ebee;
   --fg: #16181d;
   --muted: #6b7280;
-  --card: #ffffff;
-  --line: #e4e4de;
+  --card: #f4f5f7;
+  --line: #d5d8de;
   --accent: #1f6feb;
-  --tag: #eef2ff;
+  --tag: #e1e5ec;
   font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -124,15 +124,7 @@ body::before {
   mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
   -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
 }
-.gradient {
-  background: linear-gradient(100deg, var(--fg) 20%, var(--accent) 55%, #8b5cf6 90%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shine 8s linear infinite;
-}
-@keyframes shine { to { background-position: 200% center; } }
+
 
 .chip {
   display: inline-flex; align-items: center; gap: 8px;
@@ -153,3 +145,20 @@ body::before {
 
 section { animation: rise 0.6s both; }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+
+/* ---- neural name ---- */
+.neural { position: relative; margin: 0 0 8px; }
+.neural h1 { position: relative; margin: 0; font-size: clamp(40px, 8vw, 72px); line-height: 1.1; }
+.neural .ch { display: inline-block; color: var(--muted); opacity: 0.25; animation: fire 0.7s both; animation-delay: calc(var(--i) * 70ms + 300ms); }
+.neural .ch.sp { width: 0.3em; }
+@keyframes fire {
+  0% { opacity: 0.25; color: var(--muted); }
+  40% { opacity: 1; color: var(--accent); text-shadow: 0 0 18px var(--accent); transform: translateY(-2px); }
+  100% { opacity: 1; color: var(--fg); text-shadow: none; transform: none; }
+}
+.neural svg { position: absolute; inset: -18px -10px; width: calc(100% + 20px); height: calc(100% + 36px); pointer-events: none; overflow: visible; }
+.neural line { stroke: var(--accent); stroke-width: 1; opacity: 0; animation: edge 0.8s both; animation-delay: calc(var(--d) * 1ms); }
+.neural circle { fill: var(--accent); opacity: 0; animation: node 1.2s both; animation-delay: calc(var(--d) * 1ms); }
+@keyframes edge { 0% { opacity: 0; } 40% { opacity: 0.7; } 100% { opacity: 0.18; } }
+@keyframes node { 0% { opacity: 0; r: 1; } 35% { opacity: 1; r: 5; } 100% { opacity: 0.45; r: 2.5; } }
+@media (prefers-reduced-motion: reduce) { .neural * { animation: none !important; opacity: 1 !important; } .neural .ch { color: var(--fg); } }
