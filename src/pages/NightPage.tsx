@@ -99,7 +99,7 @@ export default function NightPage() {
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(0);
   const [dur, setDur] = useState(0);
-  const [volume, setVolume] = useState(0.2);
+  const [volume, setVolume] = useState(0.1);
   const [glass, setGlass] = useState(0.7);
   const [scrollP, setScrollP] = useState(0);
   const [inView, setInView] = useState(false);
@@ -177,6 +177,7 @@ export default function NightPage() {
   };
 
   const track = tracks[idx];
+  const off = track.start ?? 0; // seconds skipped at the start; the timer hides them
   const glassStyle = {
     background: `rgba(0,0,0,${glass})`,
     backdropFilter: glass > 0 ? `blur(${10 * glass}px)` : "none",
@@ -265,11 +266,11 @@ export default function NightPage() {
               <span className="nt-mtitle">{track.title}</span>
               <span className="nt-martist">{track.artist}</span>
             </div>
-            <span className="nt-time">{fmt(time)}</span>
+            <span className="nt-time">{fmt(Math.max(0, time - off))}</span>
             <input
               className="nt-progress"
               type="range"
-              min={0}
+              min={off}
               max={dur || 1}
               step={0.1}
               value={time}
@@ -278,7 +279,7 @@ export default function NightPage() {
               }}
               aria-label="Progress"
             />
-            <span className="nt-time">{fmt(dur)}</span>
+            <span className="nt-time">{fmt(Math.max(0, dur - off))}</span>
             <div className="nt-ctrls">
               <button onClick={prev} aria-label="Previous">
                 <svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z" fill="currentColor" /></svg>
@@ -297,7 +298,7 @@ export default function NightPage() {
           </div>
 
           <div className="nt-controls" style={{ background: `rgba(0,0,0,${glass})` }}>
-            <button className="nt-icon" onClick={() => setVolume((v) => (v > 0 ? 0 : 0.2))} aria-label="Mute">
+            <button className="nt-icon" onClick={() => setVolume((v) => (v > 0 ? 0 : 0.1))} aria-label="Mute">
               <svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor" />{volume > 0 && <path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" />}</svg>
             </button>
             <input className="nt-slider" type="range" min={0} max={1} step={0.01} value={volume} onChange={(e) => setVolume(Number(e.target.value))} aria-label="Volume" />

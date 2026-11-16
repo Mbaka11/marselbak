@@ -56,6 +56,15 @@ a:hover { text-decoration: underline; }
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 .bar .pill { background: rgba(255, 255, 255, 0.06); color: #efe3cc; border-color: rgba(255, 255, 255, 0.14); }
+.bar .pill {
+  font-family: "Cormorant Garamond", Garamond, "Times New Roman", serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 15px;
+}
+:root[data-mode="night"] .bar .pill { font-family: "Courier New", ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.16em; }
 .pill-icon { display: inline-flex; align-items: center; padding: 6px 10px; }
 .bar .pill:hover { border-color: rgba(239, 227, 204, 0.55); }
 

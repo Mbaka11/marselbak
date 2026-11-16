@@ -244,6 +244,9 @@ export default function RainBackground() {
     // --- main loop -----------------------------------------------------------
     const start = performance.now();
     let lastIdx = -1;
+    // random scene each visit, then a random different one each time
+    let sceneIdx = Math.floor(Math.random() * SCENES.length);
+    let sceneStart = 0;
     const draw = (t: number) => {
       const g = ctx.createLinearGradient(0, 0, 0, h);
       g.addColorStop(0, "#07090d");
@@ -254,8 +257,14 @@ export default function RainBackground() {
 
       // one ML scene at a time, with a fade between them
       const el = t - start;
-      const idx = Math.floor(el / SCENE_MS) % SCENES.length;
-      const local = el % SCENE_MS;
+      if (el - sceneStart >= SCENE_MS) {
+        let n = sceneIdx;
+        while (n === sceneIdx) n = Math.floor(Math.random() * SCENES.length);
+        sceneIdx = n;
+        sceneStart = el;
+      }
+      const idx = sceneIdx;
+      const local = el - sceneStart;
       if (idx !== lastIdx) {
         lastIdx = idx;
         pulses.length = 0;

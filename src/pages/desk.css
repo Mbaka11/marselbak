@@ -23,7 +23,7 @@
   transition: transform 1.3s cubic-bezier(0.7, 0, 0.2, 1);
 }
 .view-projects .world { transform: translateX(-64%); }
-.view-education .world { transform: translateX(64%); }
+.view-education .world { transform: translateX(100%); }
 .view-experience .world { transform: translateY(100%); }
 .view-contact .world { transform: translateY(-100%); }
 
@@ -141,7 +141,7 @@
 /* ---- zones the camera visits ---- */
 .zone { position: absolute; }
 .zone-projects  { left: 100%;  top: 0; width: 54%; height: 100%; }
-.zone-education { left: -54%; top: 0; width: 54%; height: 100%; overflow: hidden; }
+.zone-education { left: -100%; top: 0; width: 100%; height: 100%; overflow: hidden; }
 .zone-experience { left: 50%; top: -100%; width: min(660px, 92%); height: 100%; transform: translateX(-50%); padding: 22px 0; }
 .zone-contact { left: 50%; top: 150%; width: min(1020px, 92%); transform: translate(-50%, -50%); }
 
