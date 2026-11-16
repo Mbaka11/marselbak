@@ -30,14 +30,14 @@ export default function HeroNetwork() {
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const counts = w < 600 ? [3, 4, 4, 3] : [4, 6, 7, 6, 4];
+      const counts = w < 600 ? [3, 5, 5, 2] : [4, 7, 8, 7, 3];
       nodes = [];
       layers = counts.map((c, li) => {
         const arr: Node[] = [];
         for (let i = 0; i < c; i++) {
           const n: Node = {
-            x: (li / (counts.length - 1)) * (w * 0.92) + w * 0.04 + (Math.sin(li * 7 + i) * w) / 60,
-            y: ((i + 0.5) / c) * h + Math.cos(li * 5 + i * 3) * 8,
+            x: (li / (counts.length - 1)) * (w * 0.9) + w * 0.05,
+            y: h * 0.12 + ((i + 0.5) / c) * h * 0.76,
             layer: li,
             glow: 0,
           };
@@ -49,7 +49,7 @@ export default function HeroNetwork() {
       edges = [];
       for (let li = 0; li < layers.length - 1; li++)
         for (const a of layers[li])
-          for (const b of layers[li + 1]) if (Math.abs(a.y - b.y) < h * 0.7) edges.push([a, b]);
+          for (const b of layers[li + 1]) edges.push([a, b]);
     };
 
     const readAccent = () => {
@@ -73,7 +73,7 @@ export default function HeroNetwork() {
       ctx.clearRect(0, 0, w, h);
       ctx.lineWidth = 1;
       for (const [a, b] of edges) {
-        ctx.strokeStyle = `rgba(${accent},${0.07 + Math.max(a.glow, b.glow) * 0.12})`;
+        ctx.strokeStyle = `rgba(${accent},${0.16 + Math.max(a.glow, b.glow) * 0.3})`;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
@@ -112,9 +112,9 @@ export default function HeroNetwork() {
       }
       for (const n of nodes) {
         n.glow = Math.max(0, n.glow - dt / 700);
-        ctx.fillStyle = `rgba(${accent},${0.18 + n.glow * 0.8})`;
+        ctx.fillStyle = `rgba(${accent},${0.5 + n.glow * 0.5})`;
         ctx.beginPath();
-        ctx.arc(n.x, n.y, 2.5 + n.glow * 2, 0, Math.PI * 2);
+        ctx.arc(n.x, n.y, 3.5 + n.glow * 2.5, 0, Math.PI * 2);
         ctx.fill();
       }
       if (!reduce) raf = requestAnimationFrame(draw);

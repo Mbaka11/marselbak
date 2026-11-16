@@ -153,8 +153,8 @@ section { animation: rise 0.6s both; }
 .hero-net {
   position: absolute; inset: 0 -40px; width: calc(100% + 80px); height: 100%;
   z-index: 0; pointer-events: none;
-  mask-image: radial-gradient(ellipse at 40% 50%, #000 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at 40% 50%, #000 30%, transparent 75%);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
 .hero-content { position: relative; z-index: 1; }
 .name { font-size: clamp(40px, 8vw, 72px); margin: 0 0 8px; line-height: 1.05; }
@@ -182,3 +182,10 @@ section { animation: rise 0.6s both; }
 .reveal ul { margin: 4px 0 12px; padding-left: 18px; }
 .reveal .cover { width: 100%; max-height: 220px; aspect-ratio: 2/1; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 12px; background: var(--tag); }
 .reveal .desc { color: var(--muted); margin: 0 0 14px; }
+
+/* ---- project cards ---- */
+.pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.pcard { display: flex; flex-direction: column; gap: 10px; padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: inherit; transition: transform 0.2s, border-color 0.2s; }
+.pcard:hover { transform: translateY(-3px); border-color: var(--accent); text-decoration: none; }
+.pcard .top { display: flex; align-items: center; gap: 12px; }
+.pcard p { margin: 0; color: var(--muted); font-size: 15px; flex: 1; }

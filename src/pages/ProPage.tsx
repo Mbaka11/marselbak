@@ -89,30 +89,24 @@ export default function ProPage() {
 
       <section id="projects">
         <h2>{ui.nav.projects[lang]}</h2>
-        {projects.map((p) => (
-          <Collapsible
-            key={p.name}
-            markdown={`# ${p.name}\n\n${p.desc[lang]}\n\nstack: ${p.tags.join(", ")}`}
-            header={
-              <div className="stack">
+        <div className="pgrid">
+          {projects.map((p) => (
+            <a className="pcard" href={p.url} target="_blank" rel="noreferrer" key={p.name}>
+              <div className="top">
+                <Logo name={p.name} />
                 <strong>{p.name}</strong>
-                <span className="tags inline">
-                  {p.tags.map((t) => (
-                    <span className="tag" key={t}>
-                      {t}
-                    </span>
-                  ))}
-                </span>
               </div>
-            }
-          >
-            <img className="cover" src={p.image} alt="" loading="lazy" />
-            <p className="desc">{p.desc[lang]}</p>
-            <a className="btn" href={p.url} target="_blank" rel="noreferrer">
-              <GithubIcon /> GitHub
+              <p>{p.desc[lang]}</p>
+              <div className="tags">
+                {p.tags.map((t) => (
+                  <span className="tag" key={t}>
+                    {t}
+                  </span>
+                ))}
+              </div>
             </a>
-          </Collapsible>
-        ))}
+          ))}
+        </div>
       </section>
 
       <section id="education">
