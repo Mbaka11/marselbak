@@ -9,7 +9,7 @@ export const links = {
 };
 
 export const ui = {
-  name: "Marsel Bak",
+  name: "Marsel Bakashov",
   role: { en: "Master's in Machine Learning at Mila", fr: "Maîtrise en apprentissage automatique à Mila" } as L,
   tagline: {
     en: "I turn machine learning into tools people actually use: reinforcement learning, AI agents, real-world data.",
@@ -21,7 +21,7 @@ export const ui = {
     education: { en: "Education", fr: "Formation" } as L,
     contact: { en: "Contact", fr: "Contact" } as L,
   },
-  cv: { en: "Download CV", fr: "Télécharger le CV" } as L,
+  cv: { en: "CV", fr: "CV" } as L,
   day: { en: "Day", fr: "Jour" } as L,
   night: { en: "Night", fr: "Nuit" } as L,
   nightTitle: { en: "The personal side", fr: "Le côté perso" } as L,
@@ -91,7 +91,8 @@ export const experience = [
 export const projects = [
   {
     name: "GravityGuyML",
-    url: "https://github.com/Mbaka11",
+    url: "https://github.com/Mbaka11/Gravity-Guy-ML",
+    image: "https://opengraph.githubassets.com/1/Mbaka11/Gravity-Guy-ML",
     desc: {
       en: "Reinforcement learning side-scroller: a Gymnasium-compatible Pygame environment with procedural generation and deep RL agents (DQN, PPO, SAC, A2C).",
       fr: "Jeu à défilement en apprentissage par renforcement : environnement Pygame compatible Gymnasium, génération procédurale et agents RL profonds (DQN, PPO, SAC, A2C).",
@@ -100,21 +101,13 @@ export const projects = [
   },
   {
     name: "ApplyPilot",
-    url: "https://github.com/Mbaka11",
+    url: "https://github.com/Mbaka11/ApplyPilot",
+    image: "https://opengraph.githubassets.com/1/Mbaka11/ApplyPilot",
     desc: {
       en: "AI job-application agent: a local Chrome extension and server that analyze postings, pick the best CV, draft cover letters and autofill forms. The user always submits.",
       fr: "Agent de candidature : extension Chrome et serveur locaux qui analysent les offres, choisissent le meilleur CV, rédigent la lettre et remplissent les formulaires. C'est toujours l'utilisateur qui soumet.",
     } as L,
     tags: ["JavaScript", "Node.js", "LLM"],
-  },
-  {
-    name: "Disease Outbreak Prediction",
-    url: "https://github.com/Mbaka11",
-    desc: {
-      en: "Predicts 11 disease outcomes from symptom and weather data with KNN, SVM and XGBoost (0.98 macro F1).",
-      fr: "Prédit 11 issues de maladies à partir de symptômes et de météo avec KNN, SVM et XGBoost (F1 macro de 0,98).",
-    } as L,
-    tags: ["Python", "scikit-learn", "XGBoost"],
   },
 ];
 

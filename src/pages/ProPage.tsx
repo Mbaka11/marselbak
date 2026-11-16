@@ -1,21 +1,45 @@
 import { useSettings } from "../settings";
 import { education, experience, links, projects, ui } from "../content";
+import Logo from "../components/Logo";
+import { GithubIcon, LinkedinIcon, MailIcon } from "../components/icons";
+
+const orgLogo: Record<string, string | undefined> = {
+  McKesson: "/logos/mckesson.png",
+  "Intact Insurance": undefined,
+  "Radio-Canada / CBC": "/logos/radio-canada.png",
+  Stingray: "/logos/stingray.png",
+};
+
+const schoolLogo: Record<string, string | undefined> = {
+  "Professional Master's in Machine Learning": "/logos/mila.png",
+  "Bachelor of Software Engineering": undefined,
+  "Exchange, Computer Engineering": "/logos/korea.png",
+};
 
 export default function ProPage() {
   const { lang } = useSettings();
+  const cv = lang === "fr" ? "/cv-fr.pdf" : "/cv-en.pdf";
+
   return (
     <div className="page">
       <section className="hero">
-        <h1>{ui.name}</h1>
+        <span className="chip">
+          <span className="dot" />
+          {lang === "fr" ? "En ce moment : McKesson, science des données et ML" : "Now: Data Science & ML at McKesson"}
+        </span>
+        <h1 className="gradient">{ui.name}</h1>
         <p className="role">
-          {ui.role[lang].replace("Mila", "")}
-          <a href={links.mila} target="_blank" rel="noreferrer">
-            Mila
-          </a>
+          <Logo src="/logos/mila.png" name="Mila" size={26} />
+          <span>
+            {ui.role[lang].replace(" Mila", " ")}
+            <a href={links.mila} target="_blank" rel="noreferrer">
+              Mila
+            </a>
+          </span>
         </p>
         <p className="lead">{ui.tagline[lang]}</p>
         <div className="actions">
-          <a className="btn primary" href="/cv.pdf" download>
+          <a className="btn primary" href={cv} target="_blank" rel="noreferrer">
             {ui.cv[lang]}
           </a>
           <a className="btn" href="#contact">
@@ -29,9 +53,12 @@ export default function ProPage() {
         {experience.map((e) => (
           <article className="card" key={e.org}>
             <div className="row">
-              <h3>
-                {e.org} <span className="muted">· {e.title[lang]}</span>
-              </h3>
+              <div className="head">
+                <Logo src={orgLogo[e.org]} name={e.org} />
+                <h3>
+                  {e.org} <span className="muted">· {e.title[lang]}</span>
+                </h3>
+              </div>
               <span className="muted">{e.period}</span>
             </div>
             <ul>
@@ -54,7 +81,8 @@ export default function ProPage() {
         <h2>{ui.nav.projects[lang]}</h2>
         <div className="grid">
           {projects.map((p) => (
-            <a className="card link" href={p.url} target="_blank" rel="noreferrer" key={p.name}>
+            <a className="card link project" href={p.url} target="_blank" rel="noreferrer" key={p.name}>
+              <img className="cover" src={p.image} alt="" loading="lazy" />
               <h3>{p.name}</h3>
               <p>{p.desc[lang]}</p>
               <div className="tags">
@@ -73,9 +101,12 @@ export default function ProPage() {
         <h2>{ui.nav.education[lang]}</h2>
         {education.map((e) => (
           <div className="row item" key={e.degree.en}>
-            <div>
-              <strong>{e.degree[lang]}</strong>
-              <div className="muted">{e.school[lang]}</div>
+            <div className="head">
+              <Logo src={schoolLogo[e.degree.en]} name={e.school.en} />
+              <div>
+                <strong>{e.degree[lang]}</strong>
+                <div className="muted">{e.school[lang]}</div>
+              </div>
             </div>
             <span className="muted">{e.period}</span>
           </div>
@@ -85,12 +116,14 @@ export default function ProPage() {
       <section id="contact">
         <h2>{ui.nav.contact[lang]}</h2>
         <p className="links">
-          <a href={`mailto:${links.email}`}>Email</a>
+          <a href={`mailto:${links.email}`}>
+            <MailIcon /> Email
+          </a>
           <a href={links.linkedin} target="_blank" rel="noreferrer">
-            LinkedIn
+            <LinkedinIcon /> LinkedIn
           </a>
           <a href={links.github} target="_blank" rel="noreferrer">
-            GitHub
+            <GithubIcon /> GitHub
           </a>
         </p>
       </section>
