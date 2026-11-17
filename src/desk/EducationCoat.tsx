@@ -48,10 +48,8 @@ export default function EducationCoat({ lang }: Props) {
         </div>
       </div>
 
-      {/* the axe, now and then picked up by a hand (steel watch on the wrist), swung and put back down */}
       <div className="ec-axegroup">
         <img className="ec-axe" src="/desk/axe.png" alt="" draggable={false} />
-        <img className="ec-hand" src="/desk/hand.png" alt="" draggable={false} />
       </div>
 
       <button type="button" className="ec-turn" onClick={() => setBack((b) => !b)} aria-pressed={back}>
