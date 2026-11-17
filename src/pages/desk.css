@@ -88,6 +88,20 @@
 }
 .desk-frame img { display: block; width: 100%; height: auto; background: #0d1117; }
 
+/* knife and sticky notes on the desk */
+.desk-knife { position: absolute; left: 5%; bottom: 9%; width: min(30vw, 330px); transform: rotate(-9deg); pointer-events: none; user-select: none; z-index: 2; }
+.postit {
+  position: absolute; box-sizing: border-box; width: 170px; padding: 14px 14px 18px;
+  font: 500 21px/1.15 Caveat, "Segoe Script", cursive; color: #27355c; pointer-events: none;
+  box-shadow: 0 1px 1px rgba(40,30,20,.18), 0 10px 14px -4px rgba(40,30,20,.28);
+  background: linear-gradient(170deg, #fff2a0, #f8e47a);
+}
+.postit span { display: block; }
+.postit-nn { left: 7%; top: 22%; transform: rotate(-5deg); }
+.postit-nn span { margin-top: 4px; font-size: 19px; text-align: center; }
+.postit-todo { left: 17%; top: 47%; transform: rotate(4deg); background: linear-gradient(170deg, #ffc9d4, #f7a9bb); width: 190px; }
+.postit-todo b { display: block; margin-bottom: 4px; font-size: 24px; font-weight: 600; text-decoration: underline wavy rgba(39,53,92,.35); }
+
 .desk-pen {
   position: absolute;
   right: 13%;
@@ -158,9 +172,10 @@
   color: #2a2420;
   box-shadow: 0 2px 3px rgba(40, 30, 20, 0.15), 0 22px 40px rgba(40, 30, 20, 0.25);
   transform: rotate(0.8deg);
-  font-family: "Cormorant Garamond", Garamond, "Times New Roman", serif;
-  font-size: 18px;
-  line-height: 1.45;
+  font-family: Caveat, "Segoe Script", "Cormorant Garamond", cursive;
+  font-size: 23px;
+  color: #1d2646;
+  line-height: 1.32;
   scrollbar-width: thin;
 }
 .sheet-stain {
@@ -174,14 +189,14 @@
   transform: rotate(0.8deg);
   z-index: 2;
 }
-.sheet-title { margin: 0 0 18px; font-size: 30px; font-weight: 600; letter-spacing: 0.14em; font-variant: small-caps; color: #2a2420; text-transform: none; }
+.sheet-title { margin: 0 0 14px; font-size: 44px; font-weight: 600; letter-spacing: 0.04em; color: #14193a; text-transform: none; }
 .sheet-list { list-style: none; margin: 0; padding: 0; }
 .sheet-list > li { padding: 0 0 18px; margin-bottom: 18px; border-bottom: 1px dashed rgba(60, 40, 20, 0.25); }
 .sheet-list > li:last-child { border-bottom: 0; }
 .sheet-list ul { margin: 6px 0 0; padding-left: 20px; }
 .sheet-head { display: flex; gap: 12px; align-items: center; }
-.sheet-head strong { font-size: 20px; }
-.sheet-meta { display: block; font: 13px/1.4 ui-monospace, Consolas, monospace; color: #6d6257; }
+.sheet-head strong { font-size: 28px; font-weight: 600; }
+.sheet-meta { display: block; font: 500 20px/1.2 Caveat, cursive; color: #4a5272; }
 .sheet .logo { background: #fff; }
 
 .home-pill {
@@ -205,7 +220,7 @@
 @media (max-width: 900px) {
   .view-projects .world { transform: translateX(-100%); }
   .view-education .world { transform: translateX(100%); }
-  .desk-frame, .desk-pen { display: none; }
+  .desk-frame, .desk-pen, .desk-knife, .postit { display: none; }
   .nameplate { top: 18px; padding: 8px 22px; }
   .np-name { font-size: 18px; letter-spacing: 0.16em; }
   .card-slot { top: 52%; }
@@ -221,3 +236,13 @@
   .world, .card-slot, .desk-pen { transition: none; animation: none; }
   .nameplate::after { display: none; }
 }
+
+/* large screens (4K at 100-150 % scaling): scale the content up */
+:root { --z: 1; }
+@media (min-width: 1900px) { :root { --z: 1.3; } }
+@media (min-width: 2500px) { :root { --z: 1.7; } }
+.sheet { zoom: var(--z); height: calc(100% / var(--z)); }
+.pc-grid { zoom: var(--z); width: calc(100% / var(--z)); }
+.ec-tag { zoom: var(--z); left: calc(27% / var(--z)); top: calc(21% / var(--z)); width: calc(46% / var(--z)); }
+.postit, .desk-knife { zoom: var(--z); }
+@media (min-width: 1900px) { .card-slot { width: min(92vw, calc(420px * var(--z))); } }
