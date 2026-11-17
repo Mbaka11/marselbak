@@ -182,29 +182,7 @@ function Pen() {
       onPointerUp={up}
       role="presentation"
     >
-      <svg viewBox="0 0 24 240" width="100%" height="100%" aria-hidden>
-        <defs>
-          <linearGradient id="pb" x1="0" x2="1">
-            <stop offset="0" stopColor="#050506" />
-            <stop offset="0.28" stopColor="#3a3b42" />
-            <stop offset="0.4" stopColor="#15151a" />
-            <stop offset="1" stopColor="#020203" />
-          </linearGradient>
-          <linearGradient id="pg" x1="0" x2="1">
-            <stop offset="0" stopColor="#8a6a24" />
-            <stop offset="0.4" stopColor="#f0d98e" />
-            <stop offset="1" stopColor="#7a5c1c" />
-          </linearGradient>
-        </defs>
-        <path d="M12 0 C 15 10 17 22 17 34 L7 34 C7 22 9 10 12 0Z" fill="url(#pg)" />
-        <path d="M12 6 V28" stroke="#4a3810" strokeWidth="0.8" />
-        <circle cx="12" cy="26" r="1" fill="#4a3810" />
-        <rect x="6" y="34" width="12" height="26" rx="2" fill="#0b0b0d" />
-        <rect x="4" y="60" width="16" height="6" fill="url(#pg)" />
-        <rect x="3" y="66" width="18" height="170" rx="9" fill="url(#pb)" />
-        <rect x="3" y="150" width="18" height="3.5" fill="url(#pg)" />
-        <rect x="5.6" y="70" width="2.6" height="156" rx="1.3" fill="#fff" fillOpacity="0.2" />
-      </svg>
+      <img src="/desk/pen.png" alt="" draggable={false} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
     </div>
   );
 }
