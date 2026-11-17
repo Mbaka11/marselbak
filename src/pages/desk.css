@@ -156,16 +156,15 @@
 .zone { position: absolute; }
 .zone-projects  { left: 100%;  top: 0; width: 54%; height: 100%; }
 .zone-education { left: -100%; top: 0; width: 100%; height: 100%; overflow: hidden; }
-.zone-experience { left: 50%; top: -100%; width: min(660px, 92%); height: 100%; transform: translateX(-50%); padding: 22px 0; }
+.zone-experience { left: 50%; top: -100%; width: min(calc(660px * var(--z)), 92%); height: 100%; transform: translateX(-50%); padding: 22px 0; }
 .zone-contact { left: 50%; top: 150%; width: min(1020px, 92%); transform: translate(-50%, -50%); }
 
 /* experience: a sheet of paper with a blood stain bottom-right */
 .sheet-wrap { position: relative; height: 100%; }
 .sheet {
   height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 36px 40px 34px;
+  overflow: hidden;
+  padding: 2.2em 2.2em 1.6em;
   background:
     repeating-linear-gradient(180deg, transparent 0 27px, rgba(80, 110, 160, 0.12) 27px 28px),
     linear-gradient(180deg, #fbf9f3, #f4efe2);
@@ -173,10 +172,10 @@
   box-shadow: 0 2px 3px rgba(40, 30, 20, 0.15), 0 22px 40px rgba(40, 30, 20, 0.25);
   transform: rotate(0.8deg);
   font-family: "Cormorant Garamond", Garamond, "Times New Roman", serif;
-  font-size: 20px;
+  font-size: clamp(13px, 2.05vh, 20px);
   font-weight: 500;
   color: #1f2437;
-  line-height: 1.42;
+  line-height: 1.34;
   scrollbar-width: thin;
 }
 .sheet-stain {
@@ -190,14 +189,14 @@
   transform: rotate(0.8deg);
   z-index: 2;
 }
-.sheet-title { margin: 0 0 14px; font: 600 44px/1.1 Caveat, "Segoe Script", cursive; letter-spacing: 0.02em; color: #14193a; text-transform: none; }
+.sheet-title { margin: 0 0 0.35em; font: 600 2.2em/1.1 Caveat, "Segoe Script", cursive; letter-spacing: 0.02em; color: #14193a; text-transform: none; }
 .sheet-list { list-style: none; margin: 0; padding: 0; }
-.sheet-list > li { padding: 0 0 18px; margin-bottom: 18px; border-bottom: 1px dashed rgba(60, 40, 20, 0.25); }
+.sheet-list > li { padding: 0 0 0.7em; margin-bottom: 0.7em; border-bottom: 1px dashed rgba(60, 40, 20, 0.25); }
 .sheet-list > li:last-child { border-bottom: 0; }
-.sheet-list ul { margin: 6px 0 0; padding-left: 20px; }
+.sheet-list ul { margin: 0.3em 0 0; padding-left: 1.1em; }
 .sheet-head { display: flex; gap: 12px; align-items: center; }
-.sheet-head strong { font: 600 26px/1.1 Caveat, "Segoe Script", cursive; color: #14193a; }
-.sheet-meta { display: block; font: 500 14px/1.4 ui-monospace, Consolas, monospace; color: #5d6378; }
+.sheet-head strong { font: 600 1.3em/1.1 Caveat, "Segoe Script", cursive; color: #14193a; }
+.sheet-meta { display: block; font: 500 0.7em/1.4 ui-monospace, Consolas, monospace; color: #5d6378; }
 .sheet .logo { background: #fff; }
 
 .home-pill {
@@ -242,7 +241,6 @@
 :root { --z: 1; }
 @media (min-width: 1900px) { :root { --z: 1.3; } }
 @media (min-width: 2500px) { :root { --z: 1.7; } }
-.sheet { zoom: var(--z); height: calc(100% / var(--z)); }
 .pc-grid { zoom: var(--z); width: calc(100% / var(--z)); }
 .ec-tag { zoom: var(--z); left: calc(27% / var(--z)); top: calc(21% / var(--z)); width: calc(46% / var(--z)); }
 .postit, .desk-knife { zoom: var(--z); }

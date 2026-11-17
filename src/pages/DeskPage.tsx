@@ -7,11 +7,11 @@ import ProjectCards from "../desk/ProjectCards";
 import EducationCoat from "../desk/EducationCoat";
 import ContactBlood from "../desk/ContactBlood";
 import LightFX from "../desk/LightFX";
-import StreetEgg from "../desk/StreetEgg";
+import StreetEgg, { StreetWindow } from "../desk/StreetEgg";
 import DeskObjects from "../desk/DeskObjects";
 import "./desk.css";
 
-type View = "home" | Section;
+type View = "home" | Section | "window";
 
 const LABELS = {
   en: { title: "Machine Learning · Mila", back: "Back to center", experience: "Experience", hint: "Flip the card" },
@@ -69,7 +69,7 @@ export default function DeskPage() {
     <div className={`desk view-${view}`}>
       <audio ref={scene} src="/audio/scene.mp3" preload="auto" loop />
       <LightFX />
-      <StreetEgg active={view === "home"} lang={lang} />
+      <StreetEgg active={view === "home"} lang={lang} onOpen={() => setView("window")} />
 
       <div className="world">
         <div className="table" aria-hidden />
@@ -129,11 +129,16 @@ export default function DeskPage() {
         <div className="zone zone-contact" {...inert(view !== "contact")}>
           <ContactBlood lang={lang} />
         </div>
+
+        {/* far up: the window (Easter egg) */}
+        <div className="zone zone-window" {...inert(view !== "window")}>
+          <StreetWindow active={view === "window"} lang={lang} onClose={() => setView("home")} />
+        </div>
       </div>
 
       {/* the card never leaves: centred at home, docked in the corner elsewhere */}
       <div className={`card-slot${view === "home" ? "" : " is-docked"}`}>
-        <BusinessCard lang={lang} cvHref={cv} onNavigate={(s) => setView(s)} active={view === "home" ? null : view} />
+        <BusinessCard lang={lang} cvHref={cv} onNavigate={(s) => setView(s)} active={view === "home" || view === "window" ? null : view} />
         <p className="desk-hint">{t.hint}</p>
       </div>
       {view !== "home" && (

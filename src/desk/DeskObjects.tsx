@@ -79,13 +79,6 @@ export default function DeskObjects({ lang }: Props) {
         <span>{fr ? "☐ dormir (peut-être)" : "☐ sleep (maybe)"}</span>
       </Loose>
 
-      <Loose cls="do-postit do-idea" rot={-3}>
-        <b>{fr ? "idées" : "ideas"}</b>
-        <span>{fr ? "→ reward shaping" : "→ reward shaping"}</span>
-        <span>{fr ? "→ agents + outils" : "→ agents + tools"}</span>
-        <span>{fr ? "→ moins de tokens" : "→ fewer tokens"}</span>
-      </Loose>
-
       <Loose cls="do-clip" rot={24}>
         <svg viewBox="0 0 30 70" width="100%" aria-hidden>
           <path
