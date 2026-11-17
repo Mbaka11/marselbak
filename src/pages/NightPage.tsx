@@ -10,8 +10,14 @@ import "../night/night.css";
 
 const NAME = "Marsel Bak";
 const BIOS = {
-  en: ['"ML @ Mila"', "reinforcement learning", '"it works on my machine"', "training agents", '"one more epoch"', "video editing"],
-  fr: ['"ML @ Mila"', "apprentissage par renforcement", '"ça marche chez moi"', "j'entraîne des agents", '"encore une epoch"', "montage vidéo"],
+  en: [
+    '"ML @ Mila"', "reinforcement learning", '"it works on my machine"', "training agents", '"not a bug, just exploration"',
+    '"one more epoch"', '"seed 42, obviously"', "video editing", '"it was the learning rate"', '"just a quick baseline"',
+  ],
+  fr: [
+    '"ML @ Mila"', "apprentissage par renforcement", '"ça marche chez moi"', "j'entraîne des agents", '"c’est pas un bug, c’est de l’exploration"',
+    '"encore une epoch"', '"seed 42, évidemment"', "montage vidéo", '"c’était le learning rate"', '"juste une petite baseline"',
+  ],
 };
 const T = {
   en: { views: "profile views", listening: "listening to", online: "online", scroll: "SCROLL", projects: "// projects_" },
