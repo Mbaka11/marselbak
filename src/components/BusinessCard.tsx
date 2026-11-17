@@ -96,6 +96,10 @@ export default function BusinessCard({ lang, cvHref, onNavigate, active = null, 
     if (!el) return;
     el.style.setProperty("--bc-rx", `${rx.toFixed(2)}deg`);
     el.style.setProperty("--bc-ry", `${ry.toFixed(2)}deg`);
+    // the tiny stain only shows when the card is tilted under the light
+    const lit = Math.min(1, Math.max(0, (Math.abs(ry) + Math.abs(rx) * 0.6 - 4) / 6));
+    el.style.setProperty("--bc-lit", lit.toFixed(2));
+    el.style.setProperty("--bc-shine", `${(50 + ry * 6).toFixed(1)}%`);
   }, []);
 
   const resetTilt = useCallback(() => {
@@ -175,6 +179,11 @@ export default function BusinessCard({ lang, cvHref, onNavigate, active = null, 
               <span className="bc-watermark" aria-hidden="true">
                 MB
               </span>
+              <svg className="bc-stain" viewBox="0 0 40 40" aria-hidden="true">
+                <path d="M19 6c4-1 8 1 9 5 1 3-1 5 0 8 1 4-2 8-6 8-5 1-9-2-9-7 0-3 2-4 2-7 0-3 1-6 4-7z" />
+                <path d="M26 28c2 0 3 2 2 4-1 1-3 1-4 0-1-2 0-4 2-4zM12 25c1 0 2 1 1 2-1 1-2 0-2-1 0-1 0-1 1-1zM30 18c1 0 1 1 1 1 0 1-1 1-2 1 0-1 0-2 1-2z" />
+                <path d="M20 29c1 4 1 6 0 8-1-2-1-5 0-8z" />
+              </svg>
               <span className="bc-corner bc-corner-tl" aria-hidden="true">
                 ML · RL
               </span>

@@ -209,7 +209,7 @@
   font-size: clamp(100px, 38cqw, 165px);
   letter-spacing: -0.04em;
   line-height: 1;
-  color: rgba(120, 105, 80, 0.035);
+  color: rgba(120, 105, 80, 0.075);
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
   pointer-events: none;
   user-select: none;
@@ -349,3 +349,28 @@
 }
 
 .bc-link.bc-active .bc-label { text-decoration: underline; text-underline-offset: 4px; }
+
+/* tiny stain, only visible when the card is tilted under the light */
+.bc-stain {
+  position: absolute;
+  right: 3.5%;
+  bottom: 4%;
+  width: 7cqw;
+  height: 7cqw;
+  fill: #5c0b0e;
+  opacity: calc(var(--bc-lit, 0) * 0.55);
+  mix-blend-mode: multiply;
+  transform: rotate(14deg);
+  filter: blur(0.25px);
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+/* a soft sheen that slides with the tilt */
+.bc-front::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 0 calc(var(--bc-shine, 50%) - 14%), rgba(255, 255, 255, 0.11) var(--bc-shine, 50%), transparent calc(var(--bc-shine, 50%) + 14%) 100%);
+}
