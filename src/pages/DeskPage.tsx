@@ -6,6 +6,9 @@ import Logo from "../components/Logo";
 import ProjectCards from "../desk/ProjectCards";
 import EducationCoat from "../desk/EducationCoat";
 import ContactBlood from "../desk/ContactBlood";
+import LightFX from "../desk/LightFX";
+import StreetEgg from "../desk/StreetEgg";
+import DeskObjects from "../desk/DeskObjects";
 import "./desk.css";
 
 type View = "home" | Section;
@@ -65,6 +68,8 @@ export default function DeskPage() {
   return (
     <div className={`desk view-${view}`}>
       <audio ref={scene} src="/audio/scene.mp3" preload="auto" loop />
+      <LightFX />
+      <StreetEgg active={view === "home"} lang={lang} />
 
       <div className="world">
         <div className="table" aria-hidden />
@@ -79,29 +84,7 @@ export default function DeskPage() {
           <img src="/desk/brain.gif" alt="" />
         </figure>
         <Pen />
-        <img className="desk-knife" src="/desk/knife.png" alt="" draggable={false} />
-        <aside className="postit postit-nn" aria-hidden>
-          <svg viewBox="0 0 120 80" width="100%" aria-hidden>
-            <g stroke="#27355c" strokeWidth="1.6" fill="none" strokeLinecap="round">
-              {[[18, 18], [18, 40], [18, 62]].map(([x, y], i) => [[56, 12], [56, 32], [56, 52], [56, 72]].map(([x2, y2], j) => (
-                <path key={`${i}-${j}`} d={`M${x} ${y} L${x2} ${y2}`} opacity="0.55" />
-              )))}
-              {[[56, 12], [56, 32], [56, 52], [56, 72]].map(([x, y], i) => [[94, 30], [94, 52]].map(([x2, y2], j) => (
-                <path key={`b${i}-${j}`} d={`M${x} ${y} L${x2} ${y2}`} opacity="0.55" />
-              )))}
-            </g>
-            {[[18, 18], [18, 40], [18, 62], [56, 12], [56, 32], [56, 52], [56, 72], [94, 30], [94, 52]].map(([x, y]) => (
-              <circle key={`${x}-${y}`} cx={x} cy={y} r="4.2" fill="#fff6c8" stroke="#27355c" strokeWidth="1.6" />
-            ))}
-          </svg>
-          <span>{lang === "fr" ? "la politique apprend… ou pas" : "the policy learns… or not"}</span>
-        </aside>
-        <aside className="postit postit-todo" aria-hidden>
-          <b>{lang === "fr" ? "à faire" : "to do"}</b>
-          <span>{lang === "fr" ? "☐ lire le papier" : "☐ read the paper"}</span>
-          <span>{lang === "fr" ? "☒ lancer l'entraînement" : "☒ launch the run"}</span>
-          <span>{lang === "fr" ? "☐ dormir (peut-être)" : "☐ sleep (maybe)"}</span>
-        </aside>
+        <DeskObjects lang={lang} />
         {/* up: experience */}
         <div className="zone zone-experience" {...inert(view !== "experience")}>
           <div className="sheet-wrap">

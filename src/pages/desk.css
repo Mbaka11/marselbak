@@ -172,10 +172,11 @@
   color: #2a2420;
   box-shadow: 0 2px 3px rgba(40, 30, 20, 0.15), 0 22px 40px rgba(40, 30, 20, 0.25);
   transform: rotate(0.8deg);
-  font-family: Caveat, "Segoe Script", "Cormorant Garamond", cursive;
-  font-size: 23px;
-  color: #1d2646;
-  line-height: 1.32;
+  font-family: "Cormorant Garamond", Garamond, "Times New Roman", serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #1f2437;
+  line-height: 1.42;
   scrollbar-width: thin;
 }
 .sheet-stain {
@@ -189,14 +190,14 @@
   transform: rotate(0.8deg);
   z-index: 2;
 }
-.sheet-title { margin: 0 0 14px; font-size: 44px; font-weight: 600; letter-spacing: 0.04em; color: #14193a; text-transform: none; }
+.sheet-title { margin: 0 0 14px; font: 600 44px/1.1 Caveat, "Segoe Script", cursive; letter-spacing: 0.02em; color: #14193a; text-transform: none; }
 .sheet-list { list-style: none; margin: 0; padding: 0; }
 .sheet-list > li { padding: 0 0 18px; margin-bottom: 18px; border-bottom: 1px dashed rgba(60, 40, 20, 0.25); }
 .sheet-list > li:last-child { border-bottom: 0; }
 .sheet-list ul { margin: 6px 0 0; padding-left: 20px; }
 .sheet-head { display: flex; gap: 12px; align-items: center; }
-.sheet-head strong { font-size: 28px; font-weight: 600; }
-.sheet-meta { display: block; font: 500 20px/1.2 Caveat, cursive; color: #4a5272; }
+.sheet-head strong { font: 600 26px/1.1 Caveat, "Segoe Script", cursive; color: #14193a; }
+.sheet-meta { display: block; font: 500 14px/1.4 ui-monospace, Consolas, monospace; color: #5d6378; }
 .sheet .logo { background: #fff; }
 
 .home-pill {

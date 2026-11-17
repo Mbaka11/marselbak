@@ -1,0 +1,35 @@
+/* Loose objects on the home desk. Prefix do- */
+.do-layer { position: absolute; inset: 0; pointer-events: none; }
+.do-item {
+  position: absolute; pointer-events: auto; cursor: grab; touch-action: none; user-select: none; z-index: 2;
+  transform: translate(var(--dx, 0), var(--dy, 0)) rotate(var(--rot, 0deg));
+  transition: transform 0.45s cubic-bezier(0.34, 1.9, 0.5, 1);   /* overshoot = springy */
+  zoom: var(--z, 1);
+}
+.do-item:hover { transform: translate(var(--dx, 0), calc(var(--dy, 0px) - 4px)) rotate(calc(var(--rot, 0deg) + 2.5deg)); }
+.do-item.is-drag { cursor: grabbing; transition: none; z-index: 6; }
+.do-item.is-drag, .do-item:active { filter: drop-shadow(0 14px 12px rgba(40, 30, 20, 0.3)); }
+.do-item img, .do-item svg { display: block; pointer-events: none; }
+
+.do-knife { left: 4%; bottom: 7%; width: min(28vw, 340px); filter: drop-shadow(0 8px 10px rgba(40, 30, 20, 0.22)); }
+.do-knife img { width: 100%; height: auto; }
+
+.do-postit {
+  box-sizing: border-box; width: 170px; padding: 14px 14px 18px;
+  font: 500 21px/1.15 Caveat, "Segoe Script", cursive; color: #27355c;
+  box-shadow: 0 1px 1px rgba(40, 30, 20, 0.18), 0 10px 14px -4px rgba(40, 30, 20, 0.28);
+}
+.do-postit span { display: block; }
+.do-postit b { display: block; margin-bottom: 4px; font-size: 24px; font-weight: 600; text-decoration: underline wavy rgba(39, 53, 92, 0.35); }
+.do-nn { left: 5%; top: 20%; background: linear-gradient(170deg, #fff2a0, #f8e47a); }
+.do-gif { width: 184px; padding: 10px 10px 12px; }
+.do-gif img { width: 100%; height: auto; background: #0d1117; box-shadow: inset 0 0 0 1px rgba(0,0,0,.25); }
+.do-gif span { margin-top: 5px; font-size: 20px; text-align: center; }
+.do-reward { left: 80%; top: 40%; background: linear-gradient(170deg, #d9f1d0, #b6dfa8); }
+.do-tree { left: 68%; top: 61%; background: linear-gradient(170deg, #ffe0bd, #f5c28c); }
+.do-todo { left: 17%; top: 47%; width: 190px; background: linear-gradient(170deg, #ffc9d4, #f7a9bb); }
+.do-idea { left: 29%; top: 20%; width: 165px; background: linear-gradient(170deg, #cfe6ff, #a9cdf2); }
+.do-clip { left: 25%; top: 44%; width: 22px; }
+
+@media (max-width: 900px) { .do-layer { display: none; } }
+@media (prefers-reduced-motion: reduce) { .do-item { transition: none; } }

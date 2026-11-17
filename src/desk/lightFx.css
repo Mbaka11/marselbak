@@ -1,0 +1,42 @@
+/* Window light from the left. Decoration only: never blocks input, never covers text (soft, low opacity). Prefix lf- */
+.lf-root {
+  position: absolute; inset: 0; z-index: 20; pointer-events: none; overflow: hidden;
+  --lf-breath: 0.6; --lf-sx: 0px; --lf-sy: 0px;
+}
+
+/* two soft diagonal shafts entering from the upper-left, breathing slowly */
+.lf-beam {
+  position: absolute; left: -12%; top: -20%; width: 70%; height: 150%;
+  transform: translate(var(--lf-sx), var(--lf-sy)) rotate(-24deg);
+  transform-origin: 0 0;
+  background: linear-gradient(90deg,
+    rgba(255, 226, 160, calc(0.20 + 0.14 * var(--lf-breath))) 0%,
+    rgba(255, 230, 175, calc(0.09 + 0.07 * var(--lf-breath))) 38%,
+    transparent 80%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+  filter: blur(22px);
+}
+.lf-beam-2 {
+  left: 8%; width: 30%; transform: translate(calc(var(--lf-sx) * 1.5), var(--lf-sy)) rotate(-24deg);
+  background: linear-gradient(90deg, rgba(255, 228, 165, calc(0.10 + 0.10 * var(--lf-breath))), transparent 90%);
+}
+
+.lf-dust { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* left edge warm, right edge slightly cooler and darker: a lens-like falloff */
+.lf-vignette {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 90% at 0% 25%, rgba(255, 236, 196, 0.10), transparent 60%),
+    linear-gradient(90deg, transparent 40%, rgba(40, 44, 60, 0.16) 100%),
+    radial-gradient(140% 120% at 50% 50%, transparent 62%, rgba(20, 16, 12, 0.10) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lf-dust { display: none; }
+  .lf-beam, .lf-beam-2 { transform: rotate(-24deg); }
+}
+@media (max-width: 900px) {
+  .lf-dust { display: none; }
+}

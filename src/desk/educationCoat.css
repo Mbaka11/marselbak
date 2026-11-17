@@ -1,7 +1,12 @@
 /* Education: part of a clear plastic raincoat entering from the top edge, an axe on the table. Prefix ec- */
 .ec-root { position: relative; width: 100%; height: 100%; overflow: hidden; }
 
-.ec-coat { position: absolute; left: 50%; top: -3%; height: 215%; aspect-ratio: 900 / 1395; transform: translateX(-50%); }
+.ec-coat { position: absolute; left: 50%; top: -3%; height: 215%; aspect-ratio: 900 / 1395; transform: translateX(-50%); perspective: 2600px; }
+/* the coat turns around its vertical axis: front (with the education tag) / back */
+.ec-flip { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 1.3s cubic-bezier(0.6, 0, 0.2, 1); }
+.is-back .ec-flip { transform: rotateY(180deg); }
+.ec-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.ec-rear { transform: rotateY(180deg); }
 .ec-img { position: absolute; inset: 0; width: 100%; height: 100%; user-select: none; pointer-events: none; }
 
 .ec-tag {
@@ -20,10 +25,45 @@
 .ec-period { font: 11px ui-monospace, Consolas, monospace; color: #5a5348; }
 .ec-fine { display: block; margin-top: 10px; text-align: center; font: 9px ui-monospace, Consolas, monospace; letter-spacing: 0.1em; color: #7a7366; text-transform: uppercase; }
 
-.ec-axe { position: absolute; left: 4%; bottom: -6%; width: 86%; z-index: 4; transform: rotate(-9deg); transform-origin: 20% 50%; user-select: none; pointer-events: none; }
+.ec-turn {
+  position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 6; cursor: pointer;
+  padding: 8px 20px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(18, 14, 10, 0.9); color: #efe9dc;
+  font: 600 15px "Cormorant Garamond", Garamond, serif; letter-spacing: 0.12em; text-transform: uppercase;
+  transition: background 0.2s;
+}
+.ec-turn:hover, .ec-turn:focus-visible { background: rgba(48, 38, 28, 0.95); outline: none; }
+
+/* axe + gloved hand. Everything is positioned in the axe image's own box (grip point at 58.6% / 37.7%). */
+.ec-axegroup {
+  position: absolute; left: 4%; bottom: -6%; width: 86%; z-index: 4; pointer-events: none; user-select: none;
+  transform: rotate(-9deg); transform-origin: 58.6% 37.7%;
+  animation: ec-lift 18s cubic-bezier(0.45, 0, 0.35, 1) 3s infinite;
+}
+.ec-axe { display: block; width: 100%; height: auto; }
+.ec-hand { position: absolute; left: 37.4%; top: 5%; width: 42.5%; height: auto; opacity: 0; transform: translate(16%, 20%); animation: ec-hand 18s cubic-bezier(0.45, 0, 0.35, 1) 3s infinite; }
+/* the hand slides in, grips, lifts the axe, swings it a little and puts it back, then lets go */
+@keyframes ec-hand {
+  0%, 9% { opacity: 0; transform: translate(16%, 20%); }
+  18%, 72% { opacity: 1; transform: translate(0, 0); }
+  82%, 100% { opacity: 0; transform: translate(16%, 20%); }
+}
+@keyframes ec-lift {
+  0%, 22% { transform: rotate(-9deg) scale(1); filter: drop-shadow(0 0 0 rgba(30, 20, 10, 0)); }
+  34% { transform: rotate(-18deg) scale(1.03); filter: drop-shadow(10px 16px 14px rgba(30, 20, 10, 0.22)); }
+  44% { transform: rotate(-27deg) scale(1.05); filter: drop-shadow(14px 22px 18px rgba(30, 20, 10, 0.25)); }
+  54% { transform: rotate(-15deg) scale(1.04); filter: drop-shadow(12px 18px 16px rgba(30, 20, 10, 0.23)); }
+  62% { transform: rotate(-22deg) scale(1.045); filter: drop-shadow(12px 20px 16px rgba(30, 20, 10, 0.24)); }
+  72%, 100% { transform: rotate(-9deg) scale(1); filter: drop-shadow(0 0 0 rgba(30, 20, 10, 0)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ec-axegroup, .ec-hand { animation: none; }
+  .ec-flip { transition: none; }
+}
+@media (min-width: 1900px) { .ec-turn { zoom: var(--z); } }
 
 @media (max-width: 900px) {
   .ec-coat { top: -2%; height: 170%; }
   .ec-tag { left: 20%; width: 60%; top: 20%; }
-  .ec-axe { width: 96%; left: 2%; }
+  .ec-axegroup { width: 96%; left: 2%; }
 }

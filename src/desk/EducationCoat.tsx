@@ -1,38 +1,62 @@
+import { useState } from "react";
 import { education } from "../content";
 import "./educationCoat.css";
 
 type Props = { lang: "en" | "fr" };
 
-// The coat and the axe are rendered images (public/desk/coat.png, axe.png).
-// Only part of the coat is in frame: it enters from the top edge.
-export default function EducationCoat({ lang }: Props) {
-  return (
-    <section className="ec-root" aria-labelledby="ec-title">
-      <div className="ec-coat">
-        <img className="ec-img" src="/desk/coat.png" alt="" draggable={false} />
+const T = {
+  en: { back: "Show the back", front: "Show the front" },
+  fr: { back: "Voir le dos", front: "Voir la face" },
+} as const;
 
-        {/* Care-label style tag sewn on the coat */}
-        <div className="ec-tag">
-          <span className="ec-stitch" aria-hidden="true" />
-          <h2 id="ec-title" className="ec-title">
-            {lang === "fr" ? "Formation" : "Education"}
-          </h2>
-          <ol className="ec-list">
-            {education.map((e) => (
-              <li key={e.period} className="ec-item">
-                <span className="ec-degree">{e.degree[lang]}</span>
-                <span className="ec-school">{e.school[lang]}</span>
-                <span className="ec-period">{e.period}</span>
-              </li>
-            ))}
-          </ol>
-          <span className="ec-fine" aria-hidden="true">
-            {lang === "fr" ? "100 % PVC · ne pas repasser" : "100% PVC · do not iron"}
-          </span>
+// Coat, axe and hand are rendered images (public/desk/coat.png, coat_back.png, axe.png, hand.png).
+// Only part of the coat is in frame: it enters from the top edge, and it can be turned around.
+export default function EducationCoat({ lang }: Props) {
+  const [back, setBack] = useState(false);
+  const t = T[lang];
+
+  return (
+    <section className={`ec-root${back ? " is-back" : ""}`} aria-labelledby="ec-title">
+      <div className="ec-coat">
+        <div className="ec-flip">
+          <div className="ec-face ec-front" aria-hidden={back}>
+            <img className="ec-img" src="/desk/coat.png" alt="" draggable={false} />
+
+            {/* Care-label style tag sewn on the coat */}
+            <div className="ec-tag">
+              <span className="ec-stitch" aria-hidden="true" />
+              <h2 id="ec-title" className="ec-title">
+                {lang === "fr" ? "Formation" : "Education"}
+              </h2>
+              <ol className="ec-list">
+                {education.map((e) => (
+                  <li key={e.period} className="ec-item">
+                    <span className="ec-degree">{e.degree[lang]}</span>
+                    <span className="ec-school">{e.school[lang]}</span>
+                    <span className="ec-period">{e.period}</span>
+                  </li>
+                ))}
+              </ol>
+              <span className="ec-fine" aria-hidden="true">
+                {lang === "fr" ? "100 % PVC · ne pas repasser" : "100% PVC · do not iron"}
+              </span>
+            </div>
+          </div>
+          <div className="ec-face ec-rear" aria-hidden={!back}>
+            <img className="ec-img" src="/desk/coat_back.png" alt="" draggable={false} />
+          </div>
         </div>
       </div>
 
-      <img className="ec-axe" src="/desk/axe.png" alt="" draggable={false} />
+      {/* the axe, now and then picked up by a gloved hand, swung a little and put back down */}
+      <div className="ec-axegroup">
+        <img className="ec-axe" src="/desk/axe.png" alt="" draggable={false} />
+        <img className="ec-hand" src="/desk/hand.png" alt="" draggable={false} />
+      </div>
+
+      <button type="button" className="ec-turn" onClick={() => setBack((b) => !b)} aria-pressed={back}>
+        {back ? t.front : t.back}
+      </button>
     </section>
   );
 }
