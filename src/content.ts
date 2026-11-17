@@ -154,16 +154,19 @@ export const projects = [
 export const education = [
   {
     period: "01/2026 – 01/2028",
+    logo: "/logos/edu-mila.png",
     school: { en: "University of Montreal / McGill – Mila", fr: "Université de Montréal / McGill – Mila" } as L,
     degree: { en: "Professional Master's in Machine Learning", fr: "Maîtrise professionnelle en apprentissage automatique" } as L,
   },
   {
     period: "09/2021 – 12/2025",
+    logo: "/logos/edu-poly.png",
     school: { en: "Polytechnique Montréal", fr: "Polytechnique Montréal" } as L,
     degree: { en: "Bachelor of Software Engineering", fr: "Baccalauréat en génie logiciel" } as L,
   },
   {
     period: "02/2025 – 06/2025",
+    logo: "/logos/edu-korea.png",
     school: { en: "Korea University", fr: "Korea University" } as L,
     degree: { en: "Exchange, Computer Engineering", fr: "Échange, génie informatique" } as L,
   },

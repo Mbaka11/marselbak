@@ -2,18 +2,15 @@
 
 /* ---- the discreet trigger: a small dark window with a warm light behind the blinds ---- */
 .egg-window {
-  position: fixed; left: 16px; top: 64px; z-index: 30; width: 40px; height: 54px; padding: 0;
-  border: 3px solid #1a1612; border-radius: 1px; background: #0d1014; cursor: pointer; opacity: 0.55;
-  box-shadow: 0 6px 12px rgba(40, 30, 20, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
-  transition: opacity 0.4s;
+  position: fixed; left: 16px; top: 64px; z-index: 30; width: 46px; height: 65px; padding: 0;
+  border: 0; background: none; cursor: pointer; opacity: 0.8;
+  filter: drop-shadow(0 6px 8px rgba(40, 30, 20, 0.4));
+  transform: rotate(-2deg); transition: opacity 0.4s, transform 0.4s, filter 0.4s;
 }
-.egg-window:hover, .egg-window:focus-visible { opacity: 1; outline: none; }
-.egg-glass-mini {
-  position: absolute; inset: 0;
-  background:
-    repeating-linear-gradient(180deg, transparent 0 5px, rgba(0, 0, 0, 0.7) 5px 6px),
-    radial-gradient(60% 50% at 30% 20%, rgba(255, 190, 110, 0.85), rgba(255, 170, 90, 0) 70%),
-    linear-gradient(180deg, #1b2330, #0b0e13);
+.egg-svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.egg-window:hover, .egg-window:focus-visible {
+  opacity: 1; outline: none; transform: rotate(0deg) scale(1.08);
+  filter: drop-shadow(0 8px 12px rgba(40, 30, 20, 0.45)) drop-shadow(0 0 10px rgba(255, 170, 80, 0.55));
 }
 
 /* ---- the camera lifts its head: the world slides down two screens (above the experience sheet) ---- */
@@ -100,7 +97,7 @@
 .egg-close:hover, .egg-close:focus-visible { background: rgba(255, 255, 255, 0.18); outline: none; }
 
 @media (max-width: 900px) {
-  .egg-window { top: 58px; left: 10px; width: 32px; height: 44px; }
+  .egg-window { top: 58px; left: 10px; width: 34px; height: 48px; }
   .egg-win { width: 92%; padding: 16px; }
   .egg-curtain { display: none; }
 }

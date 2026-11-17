@@ -64,12 +64,12 @@ export default function DeskObjects({ lang }: Props) {
 
       <Loose cls="do-postit do-reward do-gif" rot={3}>
         <img src="/desk/gifs/reward.gif" alt="" draggable={false} />
-        <span>{fr ? "reward" : "reward"}</span>
+        <span>{fr ? "ça monte… trop beau pour être vrai" : "going up… too good to be true"}</span>
       </Loose>
 
       <Loose cls="do-postit do-tree do-gif" rot={-4}>
         <img src="/desk/gifs/tree.gif" alt="" draggable={false} />
-        <span>{fr ? "arbre de décision" : "decision tree"}</span>
+        <span>{fr ? "encore un split… et c'est du surapprentissage" : "one more split… and it's overfit"}</span>
       </Loose>
 
       <Loose cls="do-postit do-todo" rot={4}>

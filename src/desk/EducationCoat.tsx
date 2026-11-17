@@ -31,6 +31,7 @@ export default function EducationCoat({ lang }: Props) {
               <ol className="ec-list">
                 {education.map((e) => (
                   <li key={e.period} className="ec-item">
+                    <img className="ec-logo" src={e.logo} alt="" draggable={false} />
                     <span className="ec-degree">{e.degree[lang]}</span>
                     <span className="ec-school">{e.school[lang]}</span>
                     <span className="ec-period">{e.period}</span>

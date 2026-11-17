@@ -18,8 +18,12 @@
 .ec-stitch { position: absolute; inset: 4px; border: 1px dashed rgba(60, 50, 35, 0.4); pointer-events: none; }
 .ec-title { margin: 0 0 10px; text-align: center; font-size: 19px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #1e1c19; }
 .ec-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.ec-item { display: grid; gap: 1px; padding-bottom: 9px; border-bottom: 1px solid rgba(30, 28, 25, 0.18); }
+.ec-item { display: grid; grid-template-columns: 34px 1fr; column-gap: 11px; align-items: center; gap: 1px 11px; padding-bottom: 9px; border-bottom: 1px solid rgba(30, 28, 25, 0.18); }
 .ec-item:last-child { border-bottom: 0; padding-bottom: 0; }
+/* school mark: printed in ink on the card (monochrome, multiplied into the paper), like a letterhead crest */
+.ec-logo { grid-row: 1 / span 3; grid-column: 1; width: 34px; height: 34px; object-fit: contain; align-self: center;
+  mix-blend-mode: multiply; opacity: 0.8; image-rendering: auto; }
+.ec-degree, .ec-school, .ec-period { grid-column: 2; }
 .ec-degree { font-size: 15px; font-weight: 600; line-height: 1.2; }
 .ec-school { font-size: 14px; font-style: italic; }
 .ec-period { font: 11px ui-monospace, Consolas, monospace; color: #5a5348; }

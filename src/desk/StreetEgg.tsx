@@ -29,7 +29,44 @@ export default function StreetEgg({ active, lang, onOpen }: Props & { active: bo
         if (e.deltaY !== 0) onOpen();
       }}
     >
-      <span className="egg-glass-mini" aria-hidden />
+      <svg className="egg-svg" viewBox="0 0 48 68" aria-hidden="true">
+        <defs>
+          <linearGradient id="egg-sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#2c3e55" />
+            <stop offset="1" stopColor="#0b0f15" />
+          </linearGradient>
+          <radialGradient id="egg-lamp" cx="0.3" cy="0.78" r="0.55">
+            <stop offset="0" stopColor="#ffb866" stopOpacity="0.95" />
+            <stop offset="1" stopColor="#ff9a40" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="egg-wood" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#4a3626" />
+            <stop offset="1" stopColor="#1d140d" />
+          </linearGradient>
+          <clipPath id="egg-clip"><rect x="6" y="6" width="36" height="50" /></clipPath>
+        </defs>
+        <rect x="1" y="1" width="46" height="58" rx="1.5" fill="url(#egg-wood)" />
+        <rect x="6" y="6" width="36" height="50" fill="url(#egg-sky)" />
+        <g clipPath="url(#egg-clip)">
+          <path d="M6 56 V40 h5 v-6 h6 v9 h4 v-14 h7 v12 h5 v-8 h5 V56Z" fill="#06080b" />
+          <g fill="#ffc46b" fillOpacity="0.85">
+            <rect x="13" y="38" width="1.6" height="2" /><rect x="23" y="31" width="1.6" height="2" />
+            <rect x="26" y="40" width="1.6" height="2" /><rect x="33" y="36" width="1.6" height="2" />
+            <rect x="9" y="44" width="1.6" height="2" /><rect x="36" y="46" width="1.6" height="2" />
+          </g>
+          <rect x="6" y="6" width="36" height="50" fill="url(#egg-lamp)" />
+          <g stroke="#cfe0f2" strokeOpacity="0.28" strokeWidth="0.5">
+            <path d="M10 8 l-2 9 M18 12 l-2 9 M27 7 l-2 9 M34 14 l-2 9 M40 9 l-2 9 M22 26 l-2 9 M13 28 l-2 9" />
+          </g>
+          <path d="M6 6 H26 L10 56 H6Z" fill="#fff" fillOpacity="0.06" />
+        </g>
+        <rect x="22.4" y="6" width="3.2" height="50" fill="url(#egg-wood)" />
+        <rect x="6" y="29.4" width="36" height="3.2" fill="url(#egg-wood)" />
+        <rect x="6" y="6" width="36" height="50" fill="none" stroke="#0a0705" strokeWidth="0.8" />
+        <path d="M1.8 1.8 H46.2" stroke="#8a6c52" strokeOpacity="0.55" strokeWidth="0.6" />
+        <rect x="-1" y="58" width="50" height="5.5" rx="1" fill="url(#egg-wood)" />
+        <path d="M-0.5 58.3 H48.5" stroke="#9c7b5e" strokeOpacity="0.6" strokeWidth="0.6" />
+      </svg>
     </button>
   );
 }
