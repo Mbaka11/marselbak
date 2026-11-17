@@ -241,7 +241,7 @@
 :root { --z: 1; }
 @media (min-width: 1900px) { :root { --z: 1.3; } }
 @media (min-width: 2500px) { :root { --z: 1.7; } }
-.pc-grid { zoom: var(--z); width: calc(100% / var(--z)); }
-.ec-tag { zoom: var(--z); left: calc(27% / var(--z)); top: calc(21% / var(--z)); width: calc(46% / var(--z)); }
+.pc-grid { zoom: var(--z); }
+.ec-tag { zoom: calc(var(--z) * 0.82); }
 .postit, .desk-knife { zoom: var(--z); }
 @media (min-width: 1900px) { .card-slot { width: min(92vw, calc(420px * var(--z))); } }

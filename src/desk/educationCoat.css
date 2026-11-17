@@ -43,7 +43,7 @@
 @media (prefers-reduced-motion: reduce) {
   .ec-flip { transition: none; }
 }
-@media (min-width: 1900px) { .ec-turn { zoom: var(--z); } }
+@media (min-width: 1900px) { .ec-turn { zoom: var(--z); } .ec-axegroup { bottom: -17%; } }
 
 @media (max-width: 900px) {
   .ec-coat { top: -2%; height: 170%; }
