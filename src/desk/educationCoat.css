@@ -49,4 +49,5 @@
   .ec-coat { top: -2%; height: 170%; }
   .ec-tag { left: 20%; width: 60%; top: 20%; }
   .ec-axegroup { width: 96%; left: 2%; }
+  .ec-turn { bottom: auto; top: 12px; left: auto; right: 12px; transform: none; padding: 6px 14px; font-size: 13px; white-space: nowrap; }
 }

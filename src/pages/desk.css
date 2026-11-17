@@ -228,7 +228,7 @@
   .zone-projects { left: 102%; width: 96%; }
   .zone-education { left: -98%; width: 96%; }
   .zone-experience { width: 94%; }
-  .sheet { padding: 28px 20px; font-size: 17px; }
+  .sheet { padding: 28px 20px; font-size: 17px; overflow-y: auto; }
   .sheet-stain { width: 70%; right: -16px; }
 }
 
