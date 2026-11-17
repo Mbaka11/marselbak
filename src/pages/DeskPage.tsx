@@ -81,7 +81,7 @@ export default function DeskPage() {
           <span className="np-title">{t.title}</span>
         </header>
         <figure className="desk-frame" aria-hidden>
-          <img src="/desk/brain.gif" alt="" />
+          <img src="/desk/brain.webp" alt="" />
         </figure>
         <Pen />
         <DeskObjects lang={lang} />

@@ -20,7 +20,7 @@ export default function EducationCoat({ lang }: Props) {
       <div className="ec-coat">
         <div className="ec-flip">
           <div className="ec-face ec-front" aria-hidden={back}>
-            <img className="ec-img" src="/desk/coat.png" alt="" draggable={false} />
+            <img className="ec-img" src="/desk/coat.png" alt="" draggable={false} loading="lazy" decoding="async" />
 
             {/* Care-label style tag sewn on the coat */}
             <div className="ec-tag">
@@ -44,13 +44,13 @@ export default function EducationCoat({ lang }: Props) {
             </div>
           </div>
           <div className="ec-face ec-rear" aria-hidden={!back}>
-            <img className="ec-img" src="/desk/coat_back.png" alt="" draggable={false} />
+            <img className="ec-img" src="/desk/coat_back.png" alt="" draggable={false} loading="lazy" decoding="async" />
           </div>
         </div>
       </div>
 
       <div className="ec-axegroup">
-        <img className="ec-axe" src="/desk/axe.png" alt="" draggable={false} />
+        <img className="ec-axe" src="/desk/axe.png" alt="" draggable={false} loading="lazy" decoding="async" />
       </div>
 
       <button type="button" className="ec-turn" onClick={() => setBack((b) => !b)} aria-pressed={back}>

@@ -44,7 +44,17 @@
   transform: rotate(-9deg); transform-origin: 58.6% 37.7%;
 }
 .ec-axe { display: block; width: 100%; height: auto; }
+/* a slow glint of light sliding over the axe (clipped to the axe's own silhouette) */
+.ec-axegroup::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  -webkit-mask: url(/desk/axe.png) center / 100% 100% no-repeat; mask: url(/desk/axe.png) center / 100% 100% no-repeat;
+  background: linear-gradient(105deg, transparent 0 44%, rgba(255, 255, 255, 0.5) 50%, transparent 56% 100%);
+  background-size: 300% 100%; background-position: 100% 0;
+  animation: ec-glint 9s ease-in-out 2.5s infinite;
+}
+@keyframes ec-glint { 0%, 50% { background-position: 100% 0; } 82%, 100% { background-position: 0% 0; } }
 @media (prefers-reduced-motion: reduce) {
+  .ec-axegroup::after { animation: none; display: none; }
   .ec-flip { transition: none; }
 }
 @media (min-width: 1900px) { .ec-turn { zoom: var(--z); } .ec-axegroup { bottom: -17%; } }

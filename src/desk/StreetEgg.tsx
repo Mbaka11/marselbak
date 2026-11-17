@@ -112,6 +112,12 @@ export function StreetWindow({ active, lang, onClose }: Props & { active: boolea
 
   useEffect(() => {
     if (active) {
+      // the film is only fetched now (it is 4+ MB): the camera move gives it a head start
+      const v = video.current;
+      if (v && v.preload !== "auto") {
+        v.preload = "auto";
+        v.load();
+      }
       setPhase("tilt");
       later(zoomIn, reduced() ? 50 : TILT_MS);
     } else {
@@ -147,7 +153,7 @@ export function StreetWindow({ active, lang, onClose }: Props & { active: boolea
               poster="/desk/egg/street-poster.jpg"
               muted
               playsInline
-              preload="auto"
+              preload="none"
               onEnded={() => {
                 setPhase("end");
                 later(onClose, 900);

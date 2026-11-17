@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { links, projects } from "../content";
 import { useSettings } from "../settings";
 import RainBackground from "../night/RainBackground";
+import Montage from "../night/Montage";
 import Orbit from "../night/Orbit";
 import { tracks, trackUrl, coverUrl } from "../night/tracks";
 import { fetchViews } from "../night/views";
@@ -334,6 +335,8 @@ export default function NightPage() {
           ))}
         </div>
       </section>
+
+      <Montage lang={lang} />
     </div>
   );
 }
