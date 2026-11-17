@@ -94,7 +94,7 @@ html.nt-snap { scroll-snap-type: y mandatory; }
 .nt-ctrls svg, .nt-icon svg { width: 100%; height: 100%; }
 .nt-root :focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
-.nt-controls { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-radius: 20px; backdrop-filter: blur(5px); }
+.nt-controls { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-radius: 20px; background: rgba(0,0,0,0.35); }
 
 .nt-scroll { position: absolute; left: 50%; bottom: 30px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 3; pointer-events: none; }
 .nt-mouse { width: 24px; height: 38px; border: 2px solid rgba(255,255,255,0.7); border-radius: 14px; position: relative; }
@@ -115,7 +115,7 @@ html.nt-snap { scroll-snap-type: y mandatory; }
 .nt-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .nt-card {
   display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: 15px;
-  background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.2);
   color: #fff; text-decoration: none;
   opacity: 0; transform: translateY(20px);
   transition: opacity 0.7s calc(var(--i) * 80ms), transform 0.7s calc(var(--i) * 80ms), border-color 0.3s, box-shadow 0.3s;

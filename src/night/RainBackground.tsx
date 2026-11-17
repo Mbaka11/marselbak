@@ -17,6 +17,28 @@ export default function RainBackground() {
     if (VIDEO) return;
     const c = ref.current!;
     const ctx = c.getContext("2d")!;
+    // the ML scene is drawn at reduced resolution on this canvas, then stretched: a cheap blur (ctx.filter is very slow)
+    const off = document.createElement("canvas");
+    const sc = off.getContext("2d")!;
+    const SCALE = 0.3;
+    // pre-rendered bokeh sprites (one per colour) instead of a new gradient per dot per frame
+    const sprites = new Map<string, HTMLCanvasElement>();
+    const spriteFor = (rgb: string) => {
+      let sp = sprites.get(rgb);
+      if (!sp) {
+        sp = document.createElement("canvas");
+        sp.width = sp.height = 128;
+        const g = sp.getContext("2d")!;
+        const rg = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+        rg.addColorStop(0, `rgba(${rgb},1)`);
+        rg.addColorStop(0.7, `rgba(${rgb},0.5)`);
+        rg.addColorStop(1, `rgba(${rgb},0)`);
+        g.fillStyle = rg;
+        g.fillRect(0, 0, 128, 128);
+        sprites.set(rgb, sp);
+      }
+      return sp;
+    };
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let w = 0, h = 0, raf = 0;
     const colors = ["255,90,70", "255,170,80", "90,150,255", "255,255,255", "200,60,60", "120,200,255"];
@@ -52,6 +74,8 @@ export default function RainBackground() {
     const init = () => {
       w = c.width = window.innerWidth;
       h = c.height = window.innerHeight;
+      off.width = Math.max(2, Math.round(w * SCALE));
+      off.height = Math.max(2, Math.round(h * SCALE));
       const small = w < 700;
 
       bokeh = Array.from({ length: Math.round((w * h) / 26000) }, () => ({
@@ -124,21 +148,21 @@ export default function RainBackground() {
       path = [0];
     };
 
-    // --- scene drawers (ctx is already blurred) ------------------------------
+    // --- scene drawers (drawn on the small offscreen canvas, upscaled = soft) ------------------------------
     const dot = (p: P, r: number, a: number, rgb = "150,210,255") => {
-      ctx.fillStyle = `rgba(${rgb},${a})`;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
-      ctx.fill();
+      sc.fillStyle = `rgba(${rgb},${a})`;
+      sc.beginPath();
+      sc.arc(p.x, p.y, r, 0, Math.PI * 2);
+      sc.fill();
     };
 
     const drawNetwork = () => {
-      ctx.strokeStyle = "rgba(120,200,255,0.14)";
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
+      sc.strokeStyle = "rgba(120,200,255,0.14)";
+      sc.lineWidth = 1.5;
+      sc.beginPath();
       for (let li = 0; li < layers.length - 1; li++)
-        for (const a of layers[li]) for (const b of layers[li + 1]) { ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); }
-      ctx.stroke();
+        for (const a of layers[li]) for (const b of layers[li + 1]) { sc.moveTo(a.x, a.y); sc.lineTo(b.x, b.y); }
+      sc.stroke();
       if (!reduce && Math.random() < 0.1 && pulses.length < 16) {
         const li = Math.floor(Math.random() * (layers.length - 1));
         pulses.push({
@@ -158,11 +182,11 @@ export default function RainBackground() {
     };
 
     const drawBrain = (st: number) => {
-      ctx.strokeStyle = "rgba(120,200,255,0.12)";
-      ctx.lineWidth = 1.2;
-      ctx.beginPath();
-      brain.forEach((n) => n.nb.forEach((j) => { ctx.moveTo(n.p.x, n.p.y); ctx.lineTo(brain[j].p.x, brain[j].p.y); }));
-      ctx.stroke();
+      sc.strokeStyle = "rgba(120,200,255,0.12)";
+      sc.lineWidth = 1.2;
+      sc.beginPath();
+      brain.forEach((n) => n.nb.forEach((j) => { sc.moveTo(n.p.x, n.p.y); sc.lineTo(brain[j].p.x, brain[j].p.y); }));
+      sc.stroke();
       // a wave starts at a random neuron and spreads to neighbours with a delay
       if (!reduce && Math.random() < 0.05) queue.push({ i: Math.floor(Math.random() * brain.length), at: st });
       for (let q = queue.length - 1; q >= 0; q--) {
@@ -175,11 +199,11 @@ export default function RainBackground() {
       for (const n of brain) {
         n.act *= 0.965;
         if (n.act > 0.04) {
-          ctx.strokeStyle = `rgba(160,225,255,${n.act * 0.5})`;
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          n.nb.forEach((j) => { ctx.moveTo(n.p.x, n.p.y); ctx.lineTo(brain[j].p.x, brain[j].p.y); });
-          ctx.stroke();
+          sc.strokeStyle = `rgba(160,225,255,${n.act * 0.5})`;
+          sc.lineWidth = 2;
+          sc.beginPath();
+          n.nb.forEach((j) => { sc.moveTo(n.p.x, n.p.y); sc.lineTo(brain[j].p.x, brain[j].p.y); });
+          sc.stroke();
         }
         dot(n.p, 5 + n.act * 9, 0.22 + n.act * 0.7, n.act > 0.2 ? "170,235,255" : "130,190,235");
       }
@@ -187,24 +211,24 @@ export default function RainBackground() {
 
     const drawLoss = (st: number) => {
       const L = w * 0.1, Rr = w * 0.9, T = h * 0.16, B = h * 0.82;
-      ctx.strokeStyle = "rgba(160,200,230,0.18)";
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(L, T); ctx.lineTo(L, B); ctx.lineTo(Rr, B);
-      for (let i = 1; i < 5; i++) { const y = B - ((B - T) * i) / 5; ctx.moveTo(L, y); ctx.lineTo(Rr, y); }
-      ctx.stroke();
+      sc.strokeStyle = "rgba(160,200,230,0.18)";
+      sc.lineWidth = 1.5;
+      sc.beginPath();
+      sc.moveTo(L, T); sc.lineTo(L, B); sc.lineTo(Rr, B);
+      for (let i = 1; i < 5; i++) { const y = B - ((B - T) * i) / 5; sc.moveTo(L, y); sc.lineTo(Rr, y); }
+      sc.stroke();
       const prog = Math.min(1, st / (SCENE_MS * 0.7));
       const line = (arr: number[], rgb: string) => {
         const n = Math.max(2, Math.floor(arr.length * prog));
-        ctx.strokeStyle = `rgba(${rgb},0.6)`;
-        ctx.lineWidth = 3;
-        ctx.beginPath();
+        sc.strokeStyle = `rgba(${rgb},0.6)`;
+        sc.lineWidth = 3;
+        sc.beginPath();
         for (let i = 0; i < n; i++) {
           const x = L + ((Rr - L) * i) / (arr.length - 1);
           const y = B - (B - T) * Math.min(1.05, arr[i]);
-          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          if (i === 0) sc.moveTo(x, y); else sc.lineTo(x, y);
         }
-        ctx.stroke();
+        sc.stroke();
         const i = n - 1;
         dot({ x: L + ((Rr - L) * i) / (arr.length - 1), y: B - (B - T) * Math.min(1.05, arr[i]) }, 9, 0.8, rgb);
       };
@@ -228,12 +252,12 @@ export default function RainBackground() {
           pathNext = st + 650;
         }
       }
-      ctx.lineWidth = 1.6;
+      sc.lineWidth = 1.6;
       tree.forEach((n) => {
         if (n.parent < 0) return;
         const p = tree[n.parent];
-        ctx.strokeStyle = `rgba(120,200,255,${0.12 + 0.5 * Math.min(p.lit, n.lit)})`;
-        ctx.beginPath(); ctx.moveTo(p.p.x, p.p.y); ctx.lineTo(n.p.x, n.p.y); ctx.stroke();
+        sc.strokeStyle = `rgba(120,200,255,${0.12 + 0.5 * Math.min(p.lit, n.lit)})`;
+        sc.beginPath(); sc.moveTo(p.p.x, p.p.y); sc.lineTo(n.p.x, n.p.y); sc.stroke();
       });
       tree.forEach((n, i) => {
         const leaf = Math.floor(Math.log2(i + 1)) === 4;
@@ -276,33 +300,33 @@ export default function RainBackground() {
         if (SCENES[idx] === "loss") makeLoss(); // fresh noisy curves each time
       }
       const alpha = Math.max(0, Math.min(1, local / FADE_MS, (SCENE_MS - local) / FADE_MS));
-      ctx.save();
-      ctx.filter = "blur(5px)";
-      ctx.globalAlpha = alpha;
+      sc.setTransform(1, 0, 0, 1, 0, 0);
+      sc.clearRect(0, 0, off.width, off.height);
+      sc.setTransform(SCALE, 0, 0, SCALE, 0, 0);
       const scene = SCENES[idx];
       if (scene === "network") drawNetwork();
       else if (scene === "brain") drawBrain(local);
       else if (scene === "loss") drawLoss(local);
       else drawTree(local);
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(off, 0, 0, w, h);
       ctx.restore();
 
       ctx.globalCompositeOperation = "lighter";
       for (const b of bokeh) {
         const flick = 0.75 + 0.25 * Math.sin(t / 900 + b.ph);
-        const rg = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-        rg.addColorStop(0, `rgba(${b.c},${b.a * flick})`);
-        rg.addColorStop(0.7, `rgba(${b.c},${b.a * 0.5 * flick})`);
-        rg.addColorStop(1, `rgba(${b.c},0)`);
-        ctx.fillStyle = rg;
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.globalAlpha = Math.min(1, b.a * flick);
+        ctx.drawImage(spriteFor(b.c), b.x - b.r, b.y - b.r, b.r * 2, b.r * 2);
         if (!reduce) {
           b.x += b.vx;
           if (b.x < -50) b.x = w + 50;
           if (b.x > w + 50) b.x = -50;
         }
       }
+      ctx.globalAlpha = 1;
       ctx.globalCompositeOperation = "source-over";
       const fog = ctx.createRadialGradient(w * 0.5, h * 0.75, 0, w * 0.5, h * 0.75, w * 0.7);
       fog.addColorStop(0, `rgba(160,170,185,${0.07 + 0.03 * Math.sin(t / 3000)})`);
