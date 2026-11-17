@@ -31,7 +31,7 @@ export default function ContactBlood({ lang }: Props) {
   return (
     <section className="cb-root" aria-label="Contact">
       <div className="cb-stage">
-        <img className="cb-pool" src="/desk/contact-pool.png" alt="" draggable={false} />
+        <img className="cb-pool" src="/desk/contact-pool.webp" alt="" loading="lazy" decoding="async" draggable={false} />
         {items.map((it) => (
           <a
             key={it.key}
