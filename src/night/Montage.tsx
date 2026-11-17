@@ -5,7 +5,7 @@ type Props = { lang: "en" | "fr" };
 
 const T = {
   en: {
-    title: "// montage_",
+    title: "// edits_",
     intro: "I also edit videos for companies: promos, LED screen loops, ads.",
   },
   fr: {

@@ -334,6 +334,11 @@ export default function NightPage() {
             </a>
           ))}
         </div>
+        {/* same wheel as the hero: there is more below (the edits) */}
+        <div className="nt-scroll nt-scroll-end" aria-hidden>
+          <div className="nt-mouse" />
+          <span>{t.scroll}</span>
+        </div>
       </section>
 
       <Montage lang={lang} />

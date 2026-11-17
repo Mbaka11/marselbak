@@ -100,6 +100,7 @@ html.nt-snap { scroll-snap-type: y mandatory; }
 .nt-mouse { width: 24px; height: 38px; border: 2px solid rgba(255,255,255,0.7); border-radius: 14px; position: relative; }
 .nt-mouse::after { content: ""; position: absolute; top: 7px; left: 50%; width: 4px; height: 8px; margin-left: -2px; border-radius: 2px; background: #fff; animation: nt-wheel 1.6s ease-in-out infinite; }
 @keyframes nt-wheel { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(14px); opacity: 0; } 100% { opacity: 0; } }
+.nt-scroll-end { bottom: 28px; transform: translateX(-50%); opacity: 0.85; }
 .nt-scroll span { font-size: 11px; letter-spacing: 3px; color: rgba(255,255,255,0.6); }
 
 .nt-projects {
