@@ -26,3 +26,6 @@ yarn-error.log*
 temp/
 
 /dist
+
+# Local Netlify folder
+.netlify
