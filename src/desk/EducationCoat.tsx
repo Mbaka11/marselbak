@@ -13,6 +13,7 @@ const T = {
 // Only part of the coat is in frame: it enters from the top edge, and it can be turned around.
 export default function EducationCoat({ lang }: Props) {
   const [back, setBack] = useState(false);
+  const [chop, setChop] = useState(false);
   const t = T[lang];
 
   return (
@@ -49,8 +50,16 @@ export default function EducationCoat({ lang }: Props) {
         </div>
       </div>
 
-      <div className="ec-axegroup">
-        <img className="ec-axe" src="/desk/axe.png" alt="" draggable={false} loading="lazy" decoding="async" />
+      <div className={`ec-axegroup${chop ? " is-chop" : ""}`} onAnimationEnd={(e) => e.animationName === "ec-chop" && setChop(false)}>
+        <img
+          className="ec-axe"
+          src="/desk/axe.png"
+          alt=""
+          draggable={false}
+          loading="lazy"
+          decoding="async"
+          onClick={() => setChop(true)}
+        />
       </div>
 
       <button type="button" className="ec-turn" onClick={() => setBack((b) => !b)} aria-pressed={back}>

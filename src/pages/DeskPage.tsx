@@ -40,7 +40,7 @@ export default function DeskPage() {
   useEffect(() => {
     const a = scene.current;
     if (!a) return;
-    a.volume = 0.22;
+    a.volume = 0.32;
     const start = () => {
       if (a.paused) a.play().catch(() => {});
     };
@@ -138,7 +138,7 @@ export default function DeskPage() {
 
       {/* the card never leaves: centred at home, docked in the corner elsewhere */}
       <div className={`card-slot${view === "home" ? "" : " is-docked"}`}>
-        <BusinessCard lang={lang} cvHref={cv} onNavigate={(s) => setView(s)} active={view === "home" || view === "window" ? null : view} />
+        <BusinessCard lang={lang} cvHref={cv} tilt={view === "home"} onNavigate={(s) => setView(s)} active={view === "home" || view === "window" ? null : view} />
         <p className="desk-hint">{t.hint}</p>
       </div>
       {view !== "home" && (

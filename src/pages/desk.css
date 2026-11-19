@@ -127,15 +127,15 @@
   transition: left 1.2s cubic-bezier(0.7, 0, 0.2, 1), top 1.2s cubic-bezier(0.7, 0, 0.2, 1), transform 1.2s cubic-bezier(0.7, 0, 0.2, 1);
   animation: throw 1s cubic-bezier(0.15, 0.85, 0.25, 1) both;
 }
-/* docked: same corner for every section, grows back on hover so it stays readable */
+/* docked: same corner for every section. No grow-on-hover: the links moved under the pointer,
+   so the underline flickered and clicks were lost. */
 .card-slot.is-docked {
   left: 22px;
   top: calc(100% - 22px);
-  transform: translate(0, -100%) rotate(-2deg) scale(0.5);
+  transform: translate(0, -100%) rotate(-2deg) scale(0.68);
   transform-origin: 0 100%;
   animation: none;
 }
-.card-slot.is-docked:hover, .card-slot.is-docked:focus-within { transform: translate(0, -100%) rotate(-1deg) scale(0.86); }
 .card-slot.is-docked .desk-hint { opacity: 0; }
 @keyframes throw {
   0% { transform: translate(120vw, -110%) rotate(-38deg) scale(1.1); }
@@ -224,7 +224,7 @@
   .nameplate { top: 18px; padding: 8px 22px; }
   .np-name { font-size: 18px; letter-spacing: 0.16em; }
   .card-slot { top: 52%; }
-  .card-slot.is-docked { left: 12px; top: calc(100% - 12px); transform: translate(0, -100%) rotate(-2deg) scale(0.4); }
+  .card-slot.is-docked { left: 12px; top: calc(100% - 12px); transform: translate(0, -100%) rotate(-2deg) scale(0.55); }
   .zone-projects { left: 102%; width: 96%; }
   .zone-education { left: -98%; width: 96%; }
   .zone-experience { width: 94%; }

@@ -1,5 +1,5 @@
 /* Education: part of a clear plastic raincoat entering from the top edge, an axe on the table. Prefix ec- */
-.ec-root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.ec-root { position: relative; width: 100%; height: 100%; overflow: hidden; container-type: size; }
 
 .ec-coat { position: absolute; left: 50%; top: -3%; height: 215%; aspect-ratio: 900 / 1395; transform: translateX(-50%); perspective: 2600px; }
 /* the coat turns around its vertical axis: front (with the education tag) / back */
@@ -40,10 +40,27 @@
 
 /* axe + hand. Everything is positioned in the axe image's own box (grip point at 58.6% / 37.7%). */
 .ec-axegroup {
-  position: absolute; left: 4%; bottom: -6%; width: 86%; z-index: 4; pointer-events: none; user-select: none;
+  /* sized from the frame height too (the coat is), so it never swallows the card on wide or short screens */
+  position: absolute; right: 4%; bottom: 6%; width: min(86%, 90cqh); z-index: 4; pointer-events: none; user-select: none;
   transform: rotate(-9deg); transform-origin: 58.6% 37.7%;
 }
-.ec-axe { display: block; width: 100%; height: auto; }
+.ec-axe { display: block; width: 100%; height: auto; pointer-events: auto; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+/* click: the axe is lifted and brought down, the table takes the hit */
+.ec-axegroup.is-chop { animation: ec-chop 0.75s cubic-bezier(0.3, 0, 0.3, 1); }
+.is-chop ~ .ec-coat, .ec-root:has(.is-chop) .ec-coat { animation: ec-thud 0.75s ease-out; }
+@keyframes ec-chop {
+  0% { transform: rotate(-9deg); }
+  32% { transform: rotate(-38deg) translateY(-3%); }
+  50% { transform: rotate(7deg) translateY(2%); }
+  62% { transform: rotate(-5deg); }
+  100% { transform: rotate(-9deg); }
+}
+@keyframes ec-thud {
+  0%, 46% { transform: translateX(-50%); }
+  52% { transform: translateX(-50%) translateY(5px); }
+  62% { transform: translateX(-50%) translateY(-2px); }
+  100% { transform: translateX(-50%); }
+}
 /* a slow glint of light sliding over the axe (clipped to the axe's own silhouette) */
 .ec-axegroup::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -55,9 +72,10 @@
 @keyframes ec-glint { 0%, 50% { background-position: 100% 0; } 82%, 100% { background-position: 0% 0; } }
 @media (prefers-reduced-motion: reduce) {
   .ec-axegroup::after { animation: none; display: none; }
+  .ec-axegroup.is-chop, .ec-root:has(.is-chop) .ec-coat { animation: none; }
   .ec-flip { transition: none; }
 }
-@media (min-width: 1900px) { .ec-turn { zoom: var(--z); } .ec-axegroup { bottom: -17%; } }
+@media (min-width: 1900px) { .ec-turn { zoom: var(--z); } }
 
 @media (max-width: 900px) {
   .ec-coat { top: -2%; height: 170%; }

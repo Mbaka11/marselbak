@@ -15,6 +15,8 @@ interface BusinessCardProps {
   active?: Section | null;
   /** Start already flipped (menu side up). */
   startFlipped?: boolean;
+  /** Mouse tilt + light effects. Off when the card is docked, so links stay still under the pointer. */
+  tilt?: boolean;
 }
 
 const NAME = "Marsel Bakashov";
@@ -77,7 +79,7 @@ function usePrefersReducedMotion(): boolean {
 const MAX_TILT_X = 7; // deg, vertical mouse movement
 const MAX_TILT_Y = 10; // deg, horizontal mouse movement
 
-export default function BusinessCard({ lang, cvHref, onNavigate, active = null, startFlipped = false }: BusinessCardProps) {
+export default function BusinessCard({ lang, cvHref, onNavigate, active = null, startFlipped = false, tilt = true }: BusinessCardProps) {
   const t = TEXT[lang];
   const [flipped, setFlipped] = useState(startFlipped);
   useEffect(() => {
@@ -111,8 +113,8 @@ export default function BusinessCard({ lang, cvHref, onNavigate, active = null, 
   }, [setTilt]);
 
   useEffect(() => {
-    if (reducedMotion) resetTilt();
-  }, [reducedMotion, resetTilt]);
+    if (reducedMotion || !tilt) resetTilt();
+  }, [reducedMotion, tilt, resetTilt]);
 
   useEffect(() => () => {
     if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
@@ -131,7 +133,7 @@ export default function BusinessCard({ lang, cvHref, onNavigate, active = null, 
   }, []);
 
   const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
-    if (reducedMotion || e.pointerType !== "mouse") return;
+    if (reducedMotion || !tilt || e.pointerType !== "mouse") return;
     const rect = e.currentTarget.getBoundingClientRect();
     if (rect.width === 0 || rect.height === 0) return;
     const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
