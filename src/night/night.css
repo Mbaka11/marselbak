@@ -156,3 +156,13 @@ html.nt-snap { scroll-snap-type: y mandatory; }
   .nt-orbit rect, .nt-mouse::after, .nt-glitch { animation: none; }
   .nt-heading, .nt-card { opacity: 1; transform: none; transition: none; }
 }
+
+/* flashlight: dark vignette with a soft hole following the mouse (one div, one gradient, no filters).
+   Sits above the canvas/grain (z 0-1) and below the content (z 2+). Tune: alpha values + 260px/520px radii. */
+.fl-light {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity 0.5s ease;
+  --fx: 50vw; --fy: 50vh;
+  background: radial-gradient(circle 520px at var(--fx) var(--fy), rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 260px, rgba(0, 0, 0, 0.6) 100%);
+}
+.fl-light.fl-on { opacity: 1; }
+@media (prefers-reduced-motion: reduce), (hover: none) { .fl-light { display: none; } }

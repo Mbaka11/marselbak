@@ -3,6 +3,7 @@ import { links, projects } from "../content";
 import { useSettings } from "../settings";
 import RainBackground from "../night/RainBackground";
 import Montage from "../night/Montage";
+import Flashlight from "../night/Flashlight";
 import Orbit from "../night/Orbit";
 import { tracks, trackUrl, coverUrl } from "../night/tracks";
 import { fetchViews } from "../night/views";
@@ -194,6 +195,7 @@ export default function NightPage() {
   return (
     <div className="nt-root">
       <RainBackground />
+      <Flashlight />
       <div className="nt-scanlines" aria-hidden />
       <audio
         ref={audio}

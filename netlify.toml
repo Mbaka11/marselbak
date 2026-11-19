@@ -4,3 +4,11 @@
 
 [functions]
   directory = "netlify/functions"
+
+# Unknown paths get the app's own 404 "crime scene" page, served with a real 404 status.
+# Only applies when no file exists (static files in public/ still serve normally);
+# the /api/views function (config.path) is matched before redirects.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404

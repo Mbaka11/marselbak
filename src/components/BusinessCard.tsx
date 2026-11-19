@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { KeyboardEvent, MouseEvent, PointerEvent } from "react";
+import { useSettings } from "../settings";
+import { playFlip } from "../sfx";
 import "./businessCard.css";
 
 type Lang = "en" | "fr";
@@ -81,6 +83,7 @@ const MAX_TILT_Y = 10; // deg, horizontal mouse movement
 
 export default function BusinessCard({ lang, cvHref, onNavigate, active = null, startFlipped = false, tilt = true }: BusinessCardProps) {
   const t = TEXT[lang];
+  const { muted } = useSettings();
   const [flipped, setFlipped] = useState(startFlipped);
   useEffect(() => {
     if (startFlipped) setFlipped(true);
@@ -129,8 +132,9 @@ export default function BusinessCard({ lang, cvHref, onNavigate, active = null, 
 
   const flip = useCallback(() => {
     hasInteracted.current = true;
+    playFlip(muted);
     setFlipped((f) => !f);
-  }, []);
+  }, [muted]);
 
   const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
     if (reducedMotion || !tilt || e.pointerType !== "mouse") return;

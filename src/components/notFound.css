@@ -1,0 +1,28 @@
+/* 404 crime scene. Prefix nf- */
+.nf { position: fixed; inset: 0; z-index: 50; overflow: hidden; display: grid; place-items: center; text-align: center;
+  background: radial-gradient(ellipse at 50% 35%, #1b1c20 0%, #0b0c0f 70%); color: #e9e6df; }
+.nf-center { position: relative; z-index: 2; padding: 0 20px; max-width: 560px; }
+.nf-chalk { width: min(78vw, 300px); height: auto; opacity: 0.9; transform: rotate(-4deg); }
+/* the chalk line draws itself (pathLength normalised so any segment length works) */
+.nf-line { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: nf-draw 1.8s ease-out 0.2s forwards; }
+.nf-line[stroke-dasharray] { stroke-dasharray: 1000; }
+@keyframes nf-draw { to { stroke-dashoffset: 0; } }
+.nf-code { margin: 6px 0 0; font: 600 56px/1 "Cormorant Garamond", Garamond, serif; letter-spacing: 0.3em; text-indent: 0.3em; color: #f0ece2; }
+.nf-line-text { margin: 12px auto 22px; font: italic 19px/1.4 "Cormorant Garamond", Garamond, serif; color: rgba(233, 230, 223, 0.75); }
+.nf-back { display: inline-block; padding: 9px 22px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(18, 14, 10, 0.9);
+  color: #efe9dc; text-decoration: none; font: 600 15px "Cormorant Garamond", Garamond, serif; letter-spacing: 0.12em; text-transform: uppercase; }
+.nf-back:hover, .nf-back:focus-visible { background: rgba(60, 48, 34, 0.95); outline: none; }
+
+.nf-tape { position: absolute; left: -10%; width: 120%; z-index: 1; padding: 7px 0; overflow: hidden; white-space: nowrap;
+  background: #f2c200; color: #15120a; font: 700 15px/1 ui-monospace, Consolas, monospace; letter-spacing: 0.18em;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.55); border-top: 2px solid #15120a; border-bottom: 2px solid #15120a; }
+.nf-tape-a { top: 22%; transform: rotate(-9deg); }
+.nf-tape-b { bottom: 20%; transform: rotate(6deg); }
+.nf-tape span { display: inline-block; animation: nf-slide 40s linear infinite; }
+.nf-tape-b span { animation-direction: reverse; }
+@keyframes nf-slide { from { transform: translateX(0); } to { transform: translateX(-25%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .nf-line { animation: none; stroke-dashoffset: 0; }
+  .nf-tape span { animation: none; }
+}

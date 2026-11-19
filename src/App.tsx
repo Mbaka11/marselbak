@@ -2,10 +2,33 @@ import { useSettings } from "./settings";
 import { ui } from "./content";
 import DeskPage from "./pages/DeskPage";
 import NightPage from "./pages/NightPage";
+import ModeTransition, { FX_SWAP_MS, FX_TOTAL_MS, type ModeFx } from "./components/ModeTransition";
+import NotFound from "./components/NotFound";
+import { useEffect, useRef, useState } from "react";
+
+const isHome = () => /^\/(index\.html?)?$/.test(window.location.pathname);
 
 export default function App() {
   const { lang, mode, setLang, setMode, muted, setMuted } = useSettings();
   const night = mode === "night";
+  const [fx, setFx] = useState<ModeFx | null>(null);
+  const timers = useRef<number[]>([]);
+  useEffect(() => () => timers.current.forEach((id) => window.clearTimeout(id)), []);
+
+  // Light transition: the overlay plays, the mode swaps at its midpoint. Clicks are ignored while it runs.
+  const switchMode = () => {
+    if (fx) return;
+    const next = night ? "day" : "night";
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setMode(next);
+      return;
+    }
+    setFx(night ? "toDay" : "toNight");
+    timers.current.push(window.setTimeout(() => setMode(next), FX_SWAP_MS));
+    timers.current.push(window.setTimeout(() => setFx(null), FX_TOTAL_MS));
+  };
+
+  if (!isHome()) return <NotFound />;
 
   return (
     <>
@@ -31,7 +54,7 @@ export default function App() {
           </button>
           <button
             className="pill"
-            onClick={() => setMode(night ? "day" : "night")}
+            onClick={switchMode}
             aria-label={night ? ui.day[lang] : ui.night[lang]}
           >
             <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden style={{ marginRight: 7, verticalAlign: "-2px" }}>
@@ -49,6 +72,7 @@ export default function App() {
         </div>
       </header>
       <main>{night ? <NightPage /> : <DeskPage />}</main>
+      <ModeTransition fx={fx} />
     </>
   );
 }

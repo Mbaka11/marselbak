@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { education } from "../content";
+import { useSettings } from "../settings";
+import { playThunk } from "../sfx";
 import "./educationCoat.css";
 
 type Props = { lang: "en" | "fr" };
@@ -14,6 +16,7 @@ const T = {
 export default function EducationCoat({ lang }: Props) {
   const [back, setBack] = useState(false);
   const [chop, setChop] = useState(false);
+  const { muted } = useSettings();
   const t = T[lang];
 
   return (
@@ -58,7 +61,11 @@ export default function EducationCoat({ lang }: Props) {
           draggable={false}
           loading="lazy"
           decoding="async"
-          onClick={() => setChop(true)}
+          onClick={() => {
+            // impact is at ~50% of the 0.75 s chop animation
+            if (!chop) playThunk(muted, 0.38);
+            setChop(true);
+          }}
         />
       </div>
 

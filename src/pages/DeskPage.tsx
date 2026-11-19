@@ -9,6 +9,7 @@ import ContactBlood from "../desk/ContactBlood";
 import LightFX from "../desk/LightFX";
 import StreetEgg, { StreetWindow } from "../desk/StreetEgg";
 import DeskObjects from "../desk/DeskObjects";
+import InkTrail, { type InkHandle } from "../desk/InkTrail";
 import "./desk.css";
 
 type View = "home" | Section | "window";
@@ -34,6 +35,7 @@ export default function DeskPage() {
   const cv = lang === "fr" ? "/cv-fr.pdf" : "/cv-en.pdf";
   const [view, setView] = useState<View>("home");
   const scene = useRef<HTMLAudioElement | null>(null);
+  const ink = useRef<InkHandle>(null);
 
   // The scene audio can only start after a user gesture, so try right away and
   // fall back to the first click or key press.
@@ -83,7 +85,8 @@ export default function DeskPage() {
         <figure className="desk-frame" aria-hidden>
           <img src="/desk/brain.webp" alt="" />
         </figure>
-        <Pen />
+        <InkTrail ref={ink} />
+        <Pen ink={ink} />
         <DeskObjects lang={lang} />
         {/* up: experience */}
         <div className="zone zone-experience" {...inert(view !== "experience")}>
@@ -151,9 +154,23 @@ export default function DeskPage() {
 }
 
 // Fountain pen: drag it around the desk, tap to rotate it.
-function Pen() {
+function Pen({ ink }: { ink: React.RefObject<InkHandle> }) {
   const [pos, setPos] = useState({ x: 0, y: 0, r: 32 });
   const drag = useRef<{ sx: number; sy: number; ox: number; oy: number; moved: boolean } | null>(null);
+  const el = useRef<HTMLDivElement | null>(null);
+
+  // The nib is the top end of the (unrotated) pen image. Its position in the world's own px:
+  // layout centre of the element (unaffected by its transform) + drag offset + rotated half-length.
+  const nib = (x: number, y: number, r: number) => {
+    const p = el.current;
+    if (!p) return null;
+    const a = (r * Math.PI) / 180;
+    const half = p.offsetHeight / 2;
+    return {
+      x: p.offsetLeft + p.offsetWidth / 2 + x + half * Math.sin(a),
+      y: p.offsetTop + p.offsetHeight / 2 + y - half * Math.cos(a),
+    };
+  };
 
   const down = (e: RPointerEvent<HTMLDivElement>) => {
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -166,20 +183,30 @@ function Pen() {
     const dy = e.clientY - d.sy;
     if (Math.abs(dx) + Math.abs(dy) > 4) d.moved = true;
     setPos((p) => ({ ...p, x: d.ox + dx, y: d.oy + dy }));
+    if (d.moved) {
+      const n = nib(d.ox + dx, d.oy + dy, pos.r);
+      if (n) ink.current?.add(n.x, n.y);
+    }
   };
   const up = () => {
     const d = drag.current;
     drag.current = null;
+    ink.current?.lift();
     if (d && !d.moved) setPos((p) => ({ ...p, r: p.r + 45 }));
   };
 
   return (
     <div
       className="desk-pen"
+      ref={el}
       style={{ transform: `translate(${pos.x}px, ${pos.y}px) rotate(${pos.r}deg)` }}
       onPointerDown={down}
       onPointerMove={move}
       onPointerUp={up}
+      onPointerCancel={() => {
+        drag.current = null;
+        ink.current?.lift();
+      }}
       role="presentation"
     >
       <img src="/desk/pen.png" alt="" draggable={false} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
