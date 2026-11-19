@@ -2,27 +2,23 @@
 .mfx { position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0; will-change: opacity; }
 
 /* the light goes out: two quick flickers, then dark, then the night page fades in */
-.mfx-toNight { background: #04060a; animation: mfx-out 1.05s linear both; }
+.mfx-toNight { background: #04060a; animation: mfx-out 0.8s ease-in-out both; }
 @keyframes mfx-out {
   0% { opacity: 0; }
-  7% { opacity: 0.55; }
-  13% { opacity: 0.08; }
-  21% { opacity: 0.8; }
-  27% { opacity: 0.25; }
-  37%, 46% { opacity: 1; }
+  14% { opacity: 0.35; }
+  22% { opacity: 0.2; }
+  40%, 46% { opacity: 0.75; }
   100% { opacity: 0; }
 }
 
 /* a warm lamp turns on: soft bloom up, then it settles and reveals the day desk */
 .mfx-toDay {
-  background: radial-gradient(ellipse 90% 80% at 50% 28%, #fff3d6 0%, #ffd9a0 38%, #c98a45 100%);
-  animation: mfx-on 1.05s ease-in-out both;
+  background: radial-gradient(ellipse 90% 80% at 50% 28%, #fff3d6 0%, #ffd9a0 45%, #d9a363 100%);
+  animation: mfx-on 0.8s ease-in-out both;
 }
 @keyframes mfx-on {
   0% { opacity: 0; }
-  14% { opacity: 0.25; }
-  22% { opacity: 0.12; }
-  38%, 44% { opacity: 1; }
+  40%, 46% { opacity: 0.7; }
   100% { opacity: 0; }
 }
 
