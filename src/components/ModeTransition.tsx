@@ -3,8 +3,8 @@ import "./modeTransition.css";
 export type ModeFx = "toNight" | "toDay";
 
 /** Full-screen light overlay played while the mode swaps underneath (the swap happens near its midpoint). */
-export const FX_SWAP_MS = 320;
-export const FX_TOTAL_MS = 800;
+export const FX_SWAP_MS = 240;
+export const FX_TOTAL_MS = 600;
 
 export default function ModeTransition({ fx }: { fx: ModeFx | null }) {
   if (!fx) return null;

@@ -1,7 +1,7 @@
 // Discreet synthesized sound effects (Web Audio, no asset files).
 // The AudioContext is created lazily on first use, which always happens inside a user gesture (click).
 
-const MASTER_GAIN = 0.07;
+const MASTER_GAIN = 0.03;
 
 let ctx: AudioContext | null = null;
 let master: GainNode | null = null;
