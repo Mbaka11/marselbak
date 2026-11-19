@@ -19,7 +19,8 @@ export default function App() {
   const switchMode = () => {
     if (fx) return;
     const next = night ? "day" : "night";
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    // night -> day is instant; only day -> night plays the light going out
+    if (night || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setMode(next);
       return;
     }
